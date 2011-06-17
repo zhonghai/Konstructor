@@ -1,0 +1,510 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0375102713AB06A300E3138B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0375102613AB06A300E3138B /* UIKit.framework */; };
+		0375102913AB06A300E3138B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0375102813AB06A300E3138B /* Foundation.framework */; };
+		0375102B13AB06A300E3138B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0375102A13AB06A300E3138B /* CoreGraphics.framework */; };
+		0375103113AB06A300E3138B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0375102F13AB06A300E3138B /* InfoPlist.strings */; };
+		0375103413AB06A300E3138B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0375103313AB06A300E3138B /* main.m */; };
+		0375103713AB06A300E3138B /* KonstructorAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0375103613AB06A300E3138B /* KonstructorAppDelegate.m */; };
+		0375104113AB06A400E3138B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0375102613AB06A300E3138B /* UIKit.framework */; };
+		0375104213AB06A400E3138B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0375102813AB06A300E3138B /* Foundation.framework */; };
+		0375104313AB06A400E3138B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0375102A13AB06A300E3138B /* CoreGraphics.framework */; };
+		0375104B13AB06A400E3138B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0375104913AB06A400E3138B /* InfoPlist.strings */; };
+		0375104E13AB06A400E3138B /* KonstructorTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 0375104D13AB06A400E3138B /* KonstructorTests.h */; };
+		0375105013AB06A400E3138B /* KonstructorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0375104F13AB06A400E3138B /* KonstructorTests.m */; };
+		0375105F13AB070500E3138B /* KonstructorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0375105B13AB070500E3138B /* KonstructorTableViewController.m */; };
+		0375106113AB070500E3138B /* TableRowBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0375105E13AB070500E3138B /* TableRowBuilder.m */; };
+		0375106613AB082300E3138B /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0375106413AB082300E3138B /* MainWindow.xib */; };
+		0375106A13AB084A00E3138B /* MyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0375106813AB084A00E3138B /* MyListViewController.m */; };
+		0375106B13AB084A00E3138B /* MyListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0375106913AB084A00E3138B /* MyListViewController.xib */; };
+		0375106D13AB0D1200E3138B /* KonstructorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0375106C13AB0D1200E3138B /* KonstructorTableViewCell.xib */; };
+		0375107D13AB101100E3138B /* comment_minus_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 0375107B13AB101100E3138B /* comment_minus_48.png */; };
+		0375107E13AB101100E3138B /* comment_plus_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 0375107C13AB101100E3138B /* comment_plus_48.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0375104413AB06A400E3138B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0375101913AB06A300E3138B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0375102113AB06A300E3138B;
+			remoteInfo = Konstructor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0375102213AB06A300E3138B /* Konstructor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Konstructor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0375102613AB06A300E3138B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0375102813AB06A300E3138B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0375102A13AB06A300E3138B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0375102E13AB06A300E3138B /* Konstructor-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Konstructor-Info.plist"; sourceTree = "<group>"; };
+		0375103013AB06A300E3138B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0375103213AB06A300E3138B /* Konstructor-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Konstructor-Prefix.pch"; sourceTree = "<group>"; };
+		0375103313AB06A300E3138B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0375103513AB06A300E3138B /* KonstructorAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KonstructorAppDelegate.h; sourceTree = "<group>"; };
+		0375103613AB06A300E3138B /* KonstructorAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KonstructorAppDelegate.m; sourceTree = "<group>"; };
+		0375104013AB06A400E3138B /* KonstructorTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KonstructorTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0375104813AB06A400E3138B /* KonstructorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KonstructorTests-Info.plist"; sourceTree = "<group>"; };
+		0375104A13AB06A400E3138B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0375104C13AB06A400E3138B /* KonstructorTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KonstructorTests-Prefix.pch"; sourceTree = "<group>"; };
+		0375104D13AB06A400E3138B /* KonstructorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KonstructorTests.h; sourceTree = "<group>"; };
+		0375104F13AB06A400E3138B /* KonstructorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KonstructorTests.m; sourceTree = "<group>"; };
+		0375105A13AB070500E3138B /* KonstructorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KonstructorTableViewController.h; sourceTree = "<group>"; };
+		0375105B13AB070500E3138B /* KonstructorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KonstructorTableViewController.m; sourceTree = "<group>"; };
+		0375105D13AB070500E3138B /* TableRowBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableRowBuilder.h; sourceTree = "<group>"; };
+		0375105E13AB070500E3138B /* TableRowBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableRowBuilder.m; sourceTree = "<group>"; };
+		0375106513AB082300E3138B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Konstructor/en.lproj/MainWindow.xib; sourceTree = SOURCE_ROOT; };
+		0375106713AB084A00E3138B /* MyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyListViewController.h; sourceTree = "<group>"; };
+		0375106813AB084A00E3138B /* MyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyListViewController.m; sourceTree = "<group>"; };
+		0375106913AB084A00E3138B /* MyListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyListViewController.xib; sourceTree = "<group>"; };
+		0375106C13AB0D1200E3138B /* KonstructorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KonstructorTableViewCell.xib; sourceTree = "<group>"; };
+		0375107B13AB101100E3138B /* comment_minus_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_minus_48.png; sourceTree = "<group>"; };
+		0375107C13AB101100E3138B /* comment_plus_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_plus_48.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0375101F13AB06A300E3138B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0375102713AB06A300E3138B /* UIKit.framework in Frameworks */,
+				0375102913AB06A300E3138B /* Foundation.framework in Frameworks */,
+				0375102B13AB06A300E3138B /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0375103C13AB06A400E3138B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0375104113AB06A400E3138B /* UIKit.framework in Frameworks */,
+				0375104213AB06A400E3138B /* Foundation.framework in Frameworks */,
+				0375104313AB06A400E3138B /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0375101713AB06A300E3138B = {
+			isa = PBXGroup;
+			children = (
+				0375102C13AB06A300E3138B /* Konstructor */,
+				0375104613AB06A400E3138B /* KonstructorTests */,
+				0375102513AB06A300E3138B /* Frameworks */,
+				0375102313AB06A300E3138B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0375102313AB06A300E3138B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0375102213AB06A300E3138B /* Konstructor.app */,
+				0375104013AB06A400E3138B /* KonstructorTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0375102513AB06A300E3138B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0375102613AB06A300E3138B /* UIKit.framework */,
+				0375102813AB06A300E3138B /* Foundation.framework */,
+				0375102A13AB06A300E3138B /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0375102C13AB06A300E3138B /* Konstructor */ = {
+			isa = PBXGroup;
+			children = (
+				0375106213AB07FF00E3138B /* Resources */,
+				0375105913AB070500E3138B /* TableViews */,
+				0375103513AB06A300E3138B /* KonstructorAppDelegate.h */,
+				0375103613AB06A300E3138B /* KonstructorAppDelegate.m */,
+				0375102D13AB06A300E3138B /* Supporting Files */,
+				0375106713AB084A00E3138B /* MyListViewController.h */,
+				0375106813AB084A00E3138B /* MyListViewController.m */,
+				0375106913AB084A00E3138B /* MyListViewController.xib */,
+			);
+			path = Konstructor;
+			sourceTree = "<group>";
+		};
+		0375102D13AB06A300E3138B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0375102E13AB06A300E3138B /* Konstructor-Info.plist */,
+				0375102F13AB06A300E3138B /* InfoPlist.strings */,
+				0375103213AB06A300E3138B /* Konstructor-Prefix.pch */,
+				0375103313AB06A300E3138B /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0375104613AB06A400E3138B /* KonstructorTests */ = {
+			isa = PBXGroup;
+			children = (
+				0375104D13AB06A400E3138B /* KonstructorTests.h */,
+				0375104F13AB06A400E3138B /* KonstructorTests.m */,
+				0375104713AB06A400E3138B /* Supporting Files */,
+			);
+			path = KonstructorTests;
+			sourceTree = "<group>";
+		};
+		0375104713AB06A400E3138B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0375104813AB06A400E3138B /* KonstructorTests-Info.plist */,
+				0375104913AB06A400E3138B /* InfoPlist.strings */,
+				0375104C13AB06A400E3138B /* KonstructorTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0375105913AB070500E3138B /* TableViews */ = {
+			isa = PBXGroup;
+			children = (
+				0375105A13AB070500E3138B /* KonstructorTableViewController.h */,
+				0375105B13AB070500E3138B /* KonstructorTableViewController.m */,
+				0375105D13AB070500E3138B /* TableRowBuilder.h */,
+				0375105E13AB070500E3138B /* TableRowBuilder.m */,
+			);
+			name = TableViews;
+			path = Classes/TableViews;
+			sourceTree = "<group>";
+		};
+		0375106213AB07FF00E3138B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0375107613AB0FB500E3138B /* Images */,
+				0375106313AB07FF00E3138B /* XIB */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0375106313AB07FF00E3138B /* XIB */ = {
+			isa = PBXGroup;
+			children = (
+				0375106C13AB0D1200E3138B /* KonstructorTableViewCell.xib */,
+				0375106413AB082300E3138B /* MainWindow.xib */,
+			);
+			path = XIB;
+			sourceTree = "<group>";
+		};
+		0375107613AB0FB500E3138B /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				0375107B13AB101100E3138B /* comment_minus_48.png */,
+				0375107C13AB101100E3138B /* comment_plus_48.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0375102113AB06A300E3138B /* Konstructor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0375105313AB06A400E3138B /* Build configuration list for PBXNativeTarget "Konstructor" */;
+			buildPhases = (
+				0375101E13AB06A300E3138B /* Sources */,
+				0375101F13AB06A300E3138B /* Frameworks */,
+				0375102013AB06A300E3138B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Konstructor;
+			productName = Konstructor;
+			productReference = 0375102213AB06A300E3138B /* Konstructor.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0375103F13AB06A400E3138B /* KonstructorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0375105613AB06A400E3138B /* Build configuration list for PBXNativeTarget "KonstructorTests" */;
+			buildPhases = (
+				0375103B13AB06A400E3138B /* Sources */,
+				0375103C13AB06A400E3138B /* Frameworks */,
+				0375103D13AB06A400E3138B /* Resources */,
+				0375103E13AB06A400E3138B /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0375104513AB06A400E3138B /* PBXTargetDependency */,
+			);
+			name = KonstructorTests;
+			productName = KonstructorTests;
+			productReference = 0375104013AB06A400E3138B /* KonstructorTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0375101913AB06A300E3138B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = fr.ivolo.us;
+			};
+			buildConfigurationList = 0375101C13AB06A300E3138B /* Build configuration list for PBXProject "Konstructor" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0375101713AB06A300E3138B;
+			productRefGroup = 0375102313AB06A300E3138B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0375102113AB06A300E3138B /* Konstructor */,
+				0375103F13AB06A400E3138B /* KonstructorTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0375102013AB06A300E3138B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0375103113AB06A300E3138B /* InfoPlist.strings in Resources */,
+				0375106613AB082300E3138B /* MainWindow.xib in Resources */,
+				0375106B13AB084A00E3138B /* MyListViewController.xib in Resources */,
+				0375106D13AB0D1200E3138B /* KonstructorTableViewCell.xib in Resources */,
+				0375107D13AB101100E3138B /* comment_minus_48.png in Resources */,
+				0375107E13AB101100E3138B /* comment_plus_48.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0375103D13AB06A400E3138B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0375104B13AB06A400E3138B /* InfoPlist.strings in Resources */,
+				0375104E13AB06A400E3138B /* KonstructorTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0375103E13AB06A400E3138B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0375101E13AB06A300E3138B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0375103413AB06A300E3138B /* main.m in Sources */,
+				0375103713AB06A300E3138B /* KonstructorAppDelegate.m in Sources */,
+				0375105F13AB070500E3138B /* KonstructorTableViewController.m in Sources */,
+				0375106113AB070500E3138B /* TableRowBuilder.m in Sources */,
+				0375106A13AB084A00E3138B /* MyListViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0375103B13AB06A400E3138B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0375105013AB06A400E3138B /* KonstructorTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0375104513AB06A400E3138B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0375102113AB06A300E3138B /* Konstructor */;
+			targetProxy = 0375104413AB06A400E3138B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0375102F13AB06A300E3138B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0375103013AB06A300E3138B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0375104913AB06A400E3138B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0375104A13AB06A400E3138B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0375106413AB082300E3138B /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0375106513AB082300E3138B /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0375105113AB06A400E3138B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		0375105213AB06A400E3138B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		0375105413AB06A400E3138B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Konstructor/Konstructor-Prefix.pch";
+				INFOPLIST_FILE = "Konstructor/Konstructor-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		0375105513AB06A400E3138B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Konstructor/Konstructor-Prefix.pch";
+				INFOPLIST_FILE = "Konstructor/Konstructor-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		0375105713AB06A400E3138B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Konstructor.app/Konstructor";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KonstructorTests/KonstructorTests-Prefix.pch";
+				INFOPLIST_FILE = "KonstructorTests/KonstructorTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		0375105813AB06A400E3138B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Konstructor.app/Konstructor";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KonstructorTests/KonstructorTests-Prefix.pch";
+				INFOPLIST_FILE = "KonstructorTests/KonstructorTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0375101C13AB06A300E3138B /* Build configuration list for PBXProject "Konstructor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0375105113AB06A400E3138B /* Debug */,
+				0375105213AB06A400E3138B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0375105313AB06A400E3138B /* Build configuration list for PBXNativeTarget "Konstructor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0375105413AB06A400E3138B /* Debug */,
+				0375105513AB06A400E3138B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		0375105613AB06A400E3138B /* Build configuration list for PBXNativeTarget "KonstructorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0375105713AB06A400E3138B /* Debug */,
+				0375105813AB06A400E3138B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0375101913AB06A300E3138B /* Project object */;
+}
