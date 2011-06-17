@@ -19,14 +19,14 @@
 		0375104B13AB06A400E3138B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0375104913AB06A400E3138B /* InfoPlist.strings */; };
 		0375104E13AB06A400E3138B /* KonstructorTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 0375104D13AB06A400E3138B /* KonstructorTests.h */; };
 		0375105013AB06A400E3138B /* KonstructorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0375104F13AB06A400E3138B /* KonstructorTests.m */; };
-		0375105F13AB070500E3138B /* KonstructorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0375105B13AB070500E3138B /* KonstructorTableViewController.m */; };
-		0375106113AB070500E3138B /* TableRowBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0375105E13AB070500E3138B /* TableRowBuilder.m */; };
 		0375106613AB082300E3138B /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0375106413AB082300E3138B /* MainWindow.xib */; };
-		0375106A13AB084A00E3138B /* MyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0375106813AB084A00E3138B /* MyListViewController.m */; };
-		0375106B13AB084A00E3138B /* MyListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0375106913AB084A00E3138B /* MyListViewController.xib */; };
 		0375106D13AB0D1200E3138B /* KonstructorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0375106C13AB0D1200E3138B /* KonstructorTableViewCell.xib */; };
 		0375107D13AB101100E3138B /* comment_minus_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 0375107B13AB101100E3138B /* comment_minus_48.png */; };
 		0375107E13AB101100E3138B /* comment_plus_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 0375107C13AB101100E3138B /* comment_plus_48.png */; };
+		03D2C62413AB196700CC1238 /* MyListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D2C62313AB196700CC1238 /* MyListViewController.xib */; };
+		03D2C62D13AB198300CC1238 /* MyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D2C62713AB198300CC1238 /* MyListViewController.m */; };
+		03D2C62E13AB198300CC1238 /* KonstructorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D2C62A13AB198300CC1238 /* KonstructorTableViewController.m */; };
+		03D2C62F13AB198300CC1238 /* TableRowBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D2C62C13AB198300CC1238 /* TableRowBuilder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,17 +56,17 @@
 		0375104C13AB06A400E3138B /* KonstructorTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KonstructorTests-Prefix.pch"; sourceTree = "<group>"; };
 		0375104D13AB06A400E3138B /* KonstructorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KonstructorTests.h; sourceTree = "<group>"; };
 		0375104F13AB06A400E3138B /* KonstructorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KonstructorTests.m; sourceTree = "<group>"; };
-		0375105A13AB070500E3138B /* KonstructorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KonstructorTableViewController.h; sourceTree = "<group>"; };
-		0375105B13AB070500E3138B /* KonstructorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KonstructorTableViewController.m; sourceTree = "<group>"; };
-		0375105D13AB070500E3138B /* TableRowBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableRowBuilder.h; sourceTree = "<group>"; };
-		0375105E13AB070500E3138B /* TableRowBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableRowBuilder.m; sourceTree = "<group>"; };
 		0375106513AB082300E3138B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Konstructor/en.lproj/MainWindow.xib; sourceTree = SOURCE_ROOT; };
-		0375106713AB084A00E3138B /* MyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyListViewController.h; sourceTree = "<group>"; };
-		0375106813AB084A00E3138B /* MyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyListViewController.m; sourceTree = "<group>"; };
-		0375106913AB084A00E3138B /* MyListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyListViewController.xib; sourceTree = "<group>"; };
 		0375106C13AB0D1200E3138B /* KonstructorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KonstructorTableViewCell.xib; sourceTree = "<group>"; };
 		0375107B13AB101100E3138B /* comment_minus_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_minus_48.png; sourceTree = "<group>"; };
 		0375107C13AB101100E3138B /* comment_plus_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_plus_48.png; sourceTree = "<group>"; };
+		03D2C62313AB196700CC1238 /* MyListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyListViewController.xib; sourceTree = "<group>"; };
+		03D2C62613AB198300CC1238 /* MyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyListViewController.h; sourceTree = "<group>"; };
+		03D2C62713AB198300CC1238 /* MyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyListViewController.m; sourceTree = "<group>"; };
+		03D2C62913AB198300CC1238 /* KonstructorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KonstructorTableViewController.h; sourceTree = "<group>"; };
+		03D2C62A13AB198300CC1238 /* KonstructorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KonstructorTableViewController.m; sourceTree = "<group>"; };
+		03D2C62B13AB198300CC1238 /* TableRowBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableRowBuilder.h; sourceTree = "<group>"; };
+		03D2C62C13AB198300CC1238 /* TableRowBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableRowBuilder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,14 +125,11 @@
 		0375102C13AB06A300E3138B /* Konstructor */ = {
 			isa = PBXGroup;
 			children = (
+				03D2C62513AB198300CC1238 /* Classes */,
 				0375106213AB07FF00E3138B /* Resources */,
-				0375105913AB070500E3138B /* TableViews */,
 				0375103513AB06A300E3138B /* KonstructorAppDelegate.h */,
 				0375103613AB06A300E3138B /* KonstructorAppDelegate.m */,
 				0375102D13AB06A300E3138B /* Supporting Files */,
-				0375106713AB084A00E3138B /* MyListViewController.h */,
-				0375106813AB084A00E3138B /* MyListViewController.m */,
-				0375106913AB084A00E3138B /* MyListViewController.xib */,
 			);
 			path = Konstructor;
 			sourceTree = "<group>";
@@ -168,18 +165,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		0375105913AB070500E3138B /* TableViews */ = {
-			isa = PBXGroup;
-			children = (
-				0375105A13AB070500E3138B /* KonstructorTableViewController.h */,
-				0375105B13AB070500E3138B /* KonstructorTableViewController.m */,
-				0375105D13AB070500E3138B /* TableRowBuilder.h */,
-				0375105E13AB070500E3138B /* TableRowBuilder.m */,
-			);
-			name = TableViews;
-			path = Classes/TableViews;
-			sourceTree = "<group>";
-		};
 		0375106213AB07FF00E3138B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +177,7 @@
 		0375106313AB07FF00E3138B /* XIB */ = {
 			isa = PBXGroup;
 			children = (
+				03D2C62313AB196700CC1238 /* MyListViewController.xib */,
 				0375106C13AB0D1200E3138B /* KonstructorTableViewCell.xib */,
 				0375106413AB082300E3138B /* MainWindow.xib */,
 			);
@@ -205,6 +191,27 @@
 				0375107C13AB101100E3138B /* comment_plus_48.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		03D2C62513AB198300CC1238 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				03D2C62613AB198300CC1238 /* MyListViewController.h */,
+				03D2C62713AB198300CC1238 /* MyListViewController.m */,
+				03D2C62813AB198300CC1238 /* TableViews */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		03D2C62813AB198300CC1238 /* TableViews */ = {
+			isa = PBXGroup;
+			children = (
+				03D2C62913AB198300CC1238 /* KonstructorTableViewController.h */,
+				03D2C62A13AB198300CC1238 /* KonstructorTableViewController.m */,
+				03D2C62B13AB198300CC1238 /* TableRowBuilder.h */,
+				03D2C62C13AB198300CC1238 /* TableRowBuilder.m */,
+			);
+			path = TableViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,10 +286,10 @@
 			files = (
 				0375103113AB06A300E3138B /* InfoPlist.strings in Resources */,
 				0375106613AB082300E3138B /* MainWindow.xib in Resources */,
-				0375106B13AB084A00E3138B /* MyListViewController.xib in Resources */,
 				0375106D13AB0D1200E3138B /* KonstructorTableViewCell.xib in Resources */,
 				0375107D13AB101100E3138B /* comment_minus_48.png in Resources */,
 				0375107E13AB101100E3138B /* comment_plus_48.png in Resources */,
+				03D2C62413AB196700CC1238 /* MyListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,9 +327,9 @@
 			files = (
 				0375103413AB06A300E3138B /* main.m in Sources */,
 				0375103713AB06A300E3138B /* KonstructorAppDelegate.m in Sources */,
-				0375105F13AB070500E3138B /* KonstructorTableViewController.m in Sources */,
-				0375106113AB070500E3138B /* TableRowBuilder.m in Sources */,
-				0375106A13AB084A00E3138B /* MyListViewController.m in Sources */,
+				03D2C62D13AB198300CC1238 /* MyListViewController.m in Sources */,
+				03D2C62E13AB198300CC1238 /* KonstructorTableViewController.m in Sources */,
+				03D2C62F13AB198300CC1238 /* TableRowBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +502,7 @@
 				0375105513AB06A400E3138B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0375105613AB06A400E3138B /* Build configuration list for PBXNativeTarget "KonstructorTests" */ = {
 			isa = XCConfigurationList;
@@ -503,6 +511,7 @@
 				0375105813AB06A400E3138B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
