@@ -16,9 +16,7 @@ KonstructorTableViewController
 
 Adding cells is easy using the block-taking instance method of KonstructorTableViewController:
 
-`
-
-- (void)viewDidLoad{
+`- (void)viewDidLoad{
     self.tableCellHeight = 100.0;
     [self addRow:^(TableRowBuilder *builder){
         builder.title = @"Socks";
@@ -46,6 +44,4 @@ Adding cells is easy using the block-taking instance method of KonstructorTableV
     // note that [super viewDidLoad] must be called after you add your rows
     // Otherwise use [tableView reloadData] to generate your rows
     [super viewDidLoad]; 
-}
-
-`
+}`
