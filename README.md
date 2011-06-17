@@ -5,7 +5,9 @@ Make this better
 # Installation
 
 Drag these files into your project:
-KonstructorTableViewController
+* KonstructorTableViewController.*
+* TableRowBuilder.*
+* KonstructorTableViewCell.xib // You can customize this as you see fit
 
 # Configure
 1. Subclass KonstructorTableViewController
