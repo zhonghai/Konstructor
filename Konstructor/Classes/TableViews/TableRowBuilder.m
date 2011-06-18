@@ -58,9 +58,9 @@
 
 + (id)genericBuilder{
     TableRowBuilder *row = [[[self class] alloc] init];
-    row.titleTag = 1;
-    row.captionTag = 2;
-    row.iconTag = 3;
+    row.titleTag = 101;
+    row.captionTag = 102;
+    row.iconTag = 103;
     return row;
 }
 

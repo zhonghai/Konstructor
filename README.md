@@ -1,3 +1,8 @@
+Requirements
+============
+
+ * Requires iOS 4.0 or higher (for block syntax)
+
 Installation
 ============
 

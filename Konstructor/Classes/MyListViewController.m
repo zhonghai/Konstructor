@@ -44,20 +44,22 @@
     NSArray *items = [[NSArray alloc] initWithObjects:hat, muffs, shoes, scarves, nil];
 
     /* Build a Table from an Array and fully customize the cell */
+    
     [self addRowsFromArray:items withBuilder:^(id item, TableRowBuilder *builder){
         NSDictionary *current = (NSDictionary *)item;
         
         /* Fully customize the cell */
         builder.configurationBlock = ^(UITableViewCell *cell){
-            UILabel *titleLabel = (UILabel *)[loadedCell viewWithTag:1];
+            UILabel *titleLabel = (UILabel *)[loadedCell viewWithTag:101];
             titleLabel.text = [current objectForKey:@"name"];
             
-            UILabel *captionLabel = (UILabel *)[loadedCell viewWithTag:builder.captionTag];
+            UILabel *captionLabel = (UILabel *)[loadedCell viewWithTag:102];
             captionLabel.text = [current objectForKey:@"caption"];
             
-            UIImageView *imageView = (UIImageView *)[loadedCell viewWithTag:builder.iconTag];
+            UIImageView *imageView = (UIImageView *)[loadedCell viewWithTag:103];
             imageView.image = [UIImage imageNamed:builder.selected ? @"comment_plus_48.png" : @"comment_minus_48.png"];
         };
+        builder.selector = @selector(toggle:);
     }];
     
     /*
@@ -78,8 +80,8 @@
     /*
      * Use this to add rows one at a time *
      * You can't mix this with addRowsFromArray (yet)
-     *
-     [self addRow:^(TableRowBuilder *builder){
+    
+    [self addRow:^(TableRowBuilder *builder){
          builder.title = @"Hats";
          builder.caption = @"for your head";
          builder.iconName = @"comment_minus_48.png";
@@ -87,6 +89,13 @@
          builder.selector = @selector(toggle:);
      }];
      
+    [self addRow:^(TableRowBuilder *builder){
+        builder.title = @"Gloves";
+        builder.caption = @"for your hands";
+        builder.iconName = @"comment_minus_48.png";
+        builder.selectedIconName = @"comment_plus_48.png";
+        builder.selector = @selector(toggle:);
+    }];     
      */
     
     [super viewDidLoad];

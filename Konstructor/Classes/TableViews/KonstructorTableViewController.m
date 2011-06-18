@@ -104,7 +104,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 
 - (TableRowBuilder *)addRow:(TableRowBuilderBlock)builderBlock{
     TableRowBuilderBlock _block = Block_copy(builderBlock);
-    TableRowBuilder *builder = [[TableRowBuilder alloc] init];
+    TableRowBuilder *builder = [TableRowBuilder genericBuilder];
     _block(builder);
     Block_release(_block);
     [self.rowBuilders addObject:builder];
@@ -136,6 +136,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 
 - (UITableViewCell *)configurePlainCellAtIndexPath:(NSIndexPath *)indexPath{    
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:self.customCellNibName];
+    NSLog(@"customCellNibName %@", self.customCellNibName);
     if (cell == nil) {
         [[NSBundle mainBundle] loadNibNamed:self.customCellNibName owner:self options:NULL];
         cell = loadedCell;
@@ -150,10 +151,9 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
         callback(cell);
         [cell release];
     }else{
-        UILabel *titleLabel = (UILabel *)[loadedCell viewWithTag:builder.titleTag];
-        titleLabel.hidden = NO;
-        NSLog(@"titleLabel %@", titleLabel);
-        titleLabel.text = builder.title;
+        NSLog(@"titleTag %d", builder.captionTag);
+        UILabel *mainLabel = (UILabel *)[loadedCell viewWithTag:builder.titleTag];
+        mainLabel.text = builder.title;
         
         UILabel *captionLabel = (UILabel *)[loadedCell viewWithTag:builder.captionTag];
         captionLabel.text = builder.caption;
