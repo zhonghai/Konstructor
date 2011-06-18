@@ -27,6 +27,11 @@
 @synthesize fontSize;
 @synthesize drillDownController;
 
+// view tags
+@synthesize titleTag;
+@synthesize captionTag;
+@synthesize iconTag;
+
 - (void)dealloc{
     [obj release];
     obj = nil;
@@ -49,6 +54,14 @@
         self.toggleable = NO;
     }
     return self;
+}
+
++ (id)genericBuilder{
+    TableRowBuilder *row = [[[self class] alloc] init];
+    row.titleTag = 1;
+    row.captionTag = 2;
+    row.iconTag = 3;
+    return row;
 }
 
 + (id)itemWithCallback:(CellConfigurationCallback)callback{

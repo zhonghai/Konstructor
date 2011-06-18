@@ -9,6 +9,17 @@
 #import "KonstructorTableViewController.h"
 static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 
+@interface KonstructorTableViewController (PrivateMethods)
+
+- (NSString *)labelForRow:(TableRowBuilder *)row;
+- (UITableViewCell *)configureGroupedCellAtIndexPath:(NSIndexPath *)indexPath;
+- (UITableViewCell *)configurePlainCellAtIndexPath:(NSIndexPath *)indexPath;
+- (void)rowTapped:(TableRowBuilder *)row;
+- (void)toggleRow:(TableRowBuilder *)row;
+- (void)addToggleForCell:(UITableViewCell *)cell builder:(TableRowBuilder *)builder;
+
+@end
+
 @implementation KonstructorTableViewController
 @synthesize rowBuilders;
 @synthesize headerViews;
@@ -16,9 +27,11 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 @synthesize tableCellHeight;
 @synthesize builderObjects;
 @synthesize bulkBlock;
+@synthesize customCellNibName;
 
 - (id)init{
     self = [super init];
+    self.customCellNibName = KonstructorCellIdentifier;
     self.rowBuilders = [NSMutableArray array];
     self.headerViews = [NSMutableArray array];
     return self;
@@ -26,6 +39,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 
 - (void)awakeFromNib{
     [super awakeFromNib];
+    self.customCellNibName = KonstructorCellIdentifier;
     self.rowBuilders = [NSMutableArray array];
     self.headerViews = [NSMutableArray array];
 }
@@ -84,7 +98,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     self.builderObjects = objects;
     self.bulkBlock = builderBlock;
     for(int i = 0; i < builderObjects.count ; i++){
-        [self.rowBuilders addObject:[[TableRowBuilder alloc] init]];
+        [self.rowBuilders addObject:[TableRowBuilder genericBuilder]];
     }
 }
 
@@ -98,7 +112,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 }
 
 - (void)buildRows{
-    // Can be implemented by subclasses
+    // Not Implemented
 }
 
 - (UITableViewCell *)configureGroupedCellAtIndexPath:(NSIndexPath *)indexPath{
@@ -121,9 +135,9 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 }
 
 - (UITableViewCell *)configurePlainCellAtIndexPath:(NSIndexPath *)indexPath{    
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:[self customNibCellName]];
+    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:self.customCellNibName];
     if (cell == nil) {
-        [[NSBundle mainBundle] loadNibNamed:[self customNibCellName] owner:self options:NULL];
+        [[NSBundle mainBundle] loadNibNamed:self.customCellNibName owner:self options:NULL];
         cell = loadedCell;
     }
     
@@ -138,14 +152,14 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
         callback(cell);
         [cell release];
     }else{
-        UILabel *mainLabel = (UILabel *)[loadedCell viewWithTag:1];
+        UILabel *mainLabel = (UILabel *)[loadedCell viewWithTag:builder.titleTag];
         mainLabel.text = builder.title;
         
-        UILabel *captionLabel = (UILabel *)[loadedCell viewWithTag:2];
+        UILabel *captionLabel = (UILabel *)[loadedCell viewWithTag:builder.captionTag];
         captionLabel.text = builder.caption;
         [captionLabel setHidden:builder.caption == nil];
         
-        UIImageView *imageView = (UIImageView *)[loadedCell viewWithTag:3];
+        UIImageView *imageView = (UIImageView *)[loadedCell viewWithTag:builder.iconTag];
         imageView.image = [UIImage imageNamed:builder.selected ? builder.selectedIconName : builder.iconName];
         
         [cell setSelected:[builder isSelected]];
@@ -163,10 +177,6 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     builder.formElement = sw;
     builder.toggleable = YES;
     [cell addSubview:sw];
-}
-
-- (NSString *)customNibCellName{
-    return KonstructorCellIdentifier;
 }
 
 - (void)rowTapped:(TableRowBuilder *)row{
@@ -217,7 +227,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return builderObjects ? builderObjects.count : rowBuilders.count;
+    return rowBuilders.count;
 }
 
 

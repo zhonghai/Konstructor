@@ -39,9 +39,14 @@ typedef void (^ToggleBlock)(void);
     // main icon when selected
     NSString *selectedIconName;
     
+    // Display configuration
     UITableViewCellAccessoryType accessoryType;
-    
     CGFloat fontSize;
+    
+    // Wiring up to xibs
+    NSInteger titleTag;
+    NSInteger captionTag;
+    NSInteger iconTag;
 }
 
 @property (nonatomic) SEL selector;
@@ -65,9 +70,17 @@ typedef void (^ToggleBlock)(void);
 @property (nonatomic, retain) NSString *selectedIconName;
 
 @property (nonatomic) UITableViewCellAccessoryType accessoryType;
+@property (nonatomic) CGFloat fontSize;
+
 @property (copy) CellConfigurationCallback configurationBlock;
 
-@property (nonatomic) CGFloat fontSize;
+// Wiring up to xibs
+@property (nonatomic) NSInteger titleTag;
+@property (nonatomic) NSInteger captionTag;
+@property (nonatomic) NSInteger iconTag;
+
+// Use this instead of [[... alloc] init];
++ (id)genericBuilder;
 
 // generic row configured in callback
 + (id)itemWithCallback:(CellConfigurationCallback)callback;

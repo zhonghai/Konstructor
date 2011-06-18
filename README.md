@@ -1,25 +1,52 @@
-# TODO
-
-Make this better
-
-# Installation
+Installation
+============
 
 Drag these files into your project:
-* KonstructorTableViewController.*
-* TableRowBuilder.*
-* KonstructorTableViewCell.xib // You can customize this as you see fit
 
-# Configure
+ * KonstructorTableViewController
+ * TableRowBuilder
+ * KonstructorTableViewCell.xib // Optional.  You can pass in your own nib if you wish
+
+Configuration
+============
+
 1. Subclass KonstructorTableViewController
 
-2. Configure Your Xib.  It needs a TableView.  Hook it up to the tableView IBOutlet of your controller and wire up the UITableViewDelegate and UITableViewDataSource.
+1. Configure subclass.  Either programatically or using a nib, make sure it has a table view with the delegate and data source wired up properly.
 
-3. Add Cells:
+1. Add Cells:
 
-Adding cells is easy using the block-taking instance method of KonstructorTableViewController:
+#### There are two ways to do this
+
+Build from an array:
+
+    self.tableCellHeight = 100.0;
+    self.customCellNibName = @"YourNibName"; // will default to KonstructorTableViewCell
+
+    /* Creating a mock array.  You will likely do this completely differently */
+    NSDictionary *hat = [NSDictionary dictionaryWithObjectsAndKeys:@"Gloves", @"name", @"for your hands", @"caption", nil];
+    NSDictionary *muffs = [NSDictionary dictionaryWithObjectsAndKeys:@"Muffs", @"name", @"for your ears", @"caption", nil];
+    NSDictionary *shoes = [NSDictionary dictionaryWithObjectsAndKeys:@"Socks", @"name", @"for your feets", @"caption", nil];
+    NSDictionary *scarves = [NSDictionary dictionaryWithObjectsAndKeys:@"Scarves", @"name", @"for your neck", @"caption", nil];
+    NSArray *items = [[NSArray alloc] initWithObjects:hat, muffs, shoes, scarves, nil];
+    
+    /* Build a Table from an Array */
+    [self addRowsFromArray:items withBuilder:^(id item, TableRowBuilder *builder){
+        NSDictionary *current = (NSDictionary *)item;
+        builder.title = [current objectForKey:@"title"];
+        builder.caption = [current objectForKey:@"caption"];
+        builder.iconName = @"comment_minus_48.png";
+        builder.selectedIconName = @"comment_plus_48.png";
+        builder.selector = @selector(toggle:);
+    }];
+
+
+You can add cells one by one.  This is ideal for settings or configuration views.
 
     - (void)viewDidLoad{
         self.tableCellHeight = 100.0;
+        self.customCellNibName = @"YourNibName"; // will default to KonstructorTableViewCell
+
         [self addRow:^(TableRowBuilder *builder){
             builder.title = @"Socks";
             builder.caption = @"The things that go on your feet";
@@ -47,3 +74,5 @@ Adding cells is easy using the block-taking instance method of KonstructorTableV
         // Otherwise use [tableView reloadData] to generate your rows
         [super viewDidLoad]; 
     }
+
+------------------
