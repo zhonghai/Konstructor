@@ -243,6 +243,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TableRowBuilder *selectedRow = [rowBuilders objectAtIndex:indexPath.row];
     if(selectedRow.drillDownController){
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         UIViewController *viewController = [[(id)selectedRow.drillDownController alloc] init];
         [self.navigationController pushViewController:viewController animated:YES];
         return;

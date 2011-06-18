@@ -19,7 +19,7 @@ typedef void (^ToggleBlock)(void);
     NSString *caption;
     
     // Transition to this controller when tapped
-    Class *drillDownController;
+    Class drillDownController;
     
     // UITextField, UISwitch, etc.
     id formElement;
@@ -55,7 +55,7 @@ typedef void (^ToggleBlock)(void);
 @property (nonatomic, retain) id <NSObject>obj;
 
 /* handoff controller */
-@property (nonatomic) Class *drillDownController;
+@property (nonatomic) Class drillDownController;
 
 /* add any form element: UITextField, UISwitch, etc... */
 @property (nonatomic, retain) id formElement;
