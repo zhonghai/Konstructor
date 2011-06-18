@@ -37,11 +37,11 @@
 #pragma mark - View lifecycle
 - (void)viewDidLoad{
     self.tableCellHeight = 100.0;
-    NSDictionary *hat = [NSDictionary dictionaryWithObjectsAndKeys:@"Gloves", @"name", @"for your hands", @"caption", nil];
+    NSDictionary *gloves = [NSDictionary dictionaryWithObjectsAndKeys:@"Gloves", @"name", @"for your hands", @"caption", nil];
     NSDictionary *muffs = [NSDictionary dictionaryWithObjectsAndKeys:@"Muffs", @"name", @"for your ears", @"caption", nil];
     NSDictionary *shoes = [NSDictionary dictionaryWithObjectsAndKeys:@"Socks", @"name", @"for your feets", @"caption", nil];
     NSDictionary *scarves = [NSDictionary dictionaryWithObjectsAndKeys:@"Scarves", @"name", @"for your neck", @"caption", nil];
-    NSArray *items = [[NSArray alloc] initWithObjects:hat, muffs, shoes, scarves, nil];
+    NSArray *items = [[NSArray alloc] initWithObjects:gloves, muffs, shoes, scarves, nil];
 
     /* Build a Table from an Array and fully customize the cell */
     
