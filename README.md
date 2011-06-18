@@ -18,28 +18,31 @@ Configuration
 
 #### There are two ways to do this
 
-Build from an array:
-
-    self.tableCellHeight = 100.0;
-    self.customCellNibName = @"YourNibName"; // will default to KonstructorTableViewCell
-
+Build from an array like this example array of dictionaries:
+    
     /* Creating a mock array.  You will likely do this completely differently */
     NSDictionary *hat = [NSDictionary dictionaryWithObjectsAndKeys:@"Gloves", @"name", @"for your hands", @"caption", nil];
     NSDictionary *muffs = [NSDictionary dictionaryWithObjectsAndKeys:@"Muffs", @"name", @"for your ears", @"caption", nil];
     NSDictionary *shoes = [NSDictionary dictionaryWithObjectsAndKeys:@"Socks", @"name", @"for your feets", @"caption", nil];
     NSDictionary *scarves = [NSDictionary dictionaryWithObjectsAndKeys:@"Scarves", @"name", @"for your neck", @"caption", nil];
     NSArray *items = [[NSArray alloc] initWithObjects:hat, muffs, shoes, scarves, nil];
-    
-    /* Build a Table from an Array */
+
+Any object works fine because you get the object back in the block.
+
+    self.tableCellHeight = 100.0; // set the height for each cell
+    self.customCellNibName = @"YourNibName"; // will default to KonstructorTableViewCell
+
+    /* Build a Table from your array */
     [self addRowsFromArray:items withBuilder:^(id item, TableRowBuilder *builder){
+        /* Cast your objects appropriately. */
         NSDictionary *current = (NSDictionary *)item;
+
         builder.title = [current objectForKey:@"title"];
         builder.caption = [current objectForKey:@"caption"];
         builder.iconName = @"comment_minus_48.png";
         builder.selectedIconName = @"comment_plus_48.png";
         builder.selector = @selector(toggle:);
     }];
-
 
 You can add cells one by one.  This is ideal for settings or configuration views.
 
@@ -75,4 +78,3 @@ You can add cells one by one.  This is ideal for settings or configuration views
         [super viewDidLoad]; 
     }
 
-------------------
