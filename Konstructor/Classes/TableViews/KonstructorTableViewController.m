@@ -1,6 +1,6 @@
 //
 //  EasyTableViewController.m
-//  ThreeHundred
+//  Konstructor
 //
 //  Created by Joshua Stephenson on 5/8/11.
 //  Copyright 2011 fr.ivolo.us All rights reserved.
@@ -14,6 +14,8 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 @synthesize headerViews;
 @synthesize tableView;
 @synthesize tableCellHeight;
+@synthesize builderObjects;
+@synthesize bulkBlock;
 
 - (id)init{
     self = [super init];
@@ -33,6 +35,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     [tableView release];
     [rowBuilders release];
     [headerViews release];
+    [bulkBlock release];
     [super dealloc];
 }
 
@@ -45,6 +48,8 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     rowBuilders = nil;
     [headerViews release];
     headerViews = nil;
+    [bulkBlock release];
+    bulkBlock = nil;
 }
 
 
@@ -75,10 +80,19 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     return view;
 }
 
+- (void)addRowsFromArray:(NSArray *)objects withBuilder:(BulkTableRowBuilderBlock)builderBlock{
+    self.builderObjects = objects;
+    self.bulkBlock = builderBlock;
+    for(int i = 0; i < builderObjects.count ; i++){
+        [self.rowBuilders addObject:[[TableRowBuilder alloc] init]];
+    }
+}
+
 - (TableRowBuilder *)addRow:(TableRowBuilderBlock)builderBlock{
     TableRowBuilderBlock _block = Block_copy(builderBlock);
     TableRowBuilder *builder = [[TableRowBuilder alloc] init];
     _block(builder);
+    Block_release(_block);
     [self.rowBuilders addObject:builder];
     return builder;
 }
@@ -88,10 +102,10 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 }
 
 - (UITableViewCell *)configureGroupedCellAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *EasyRegCellIdentifier = @"EasyTableViewCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:EasyRegCellIdentifier];
+    static NSString *KonstructorCellIdentifier = @"KonstructorCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:KonstructorCellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:EasyRegCellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:KonstructorCellIdentifier] autorelease];
     }
     TableRowBuilder *builder = [rowBuilders objectAtIndex:indexPath.row];
     cell.textLabel.text = builder.title == nil ? [self labelForRow:builder] : builder.title;
@@ -112,7 +126,13 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
         [[NSBundle mainBundle] loadNibNamed:[self customNibCellName] owner:self options:NULL];
         cell = loadedCell;
     }
+    
     TableRowBuilder *builder = [rowBuilders objectAtIndex:indexPath.row];
+    if(builderObjects){
+        id item = [builderObjects objectAtIndex:indexPath.row];
+        NSLog(@"item %@", item);
+        bulkBlock(item, builder);
+    }
     if(builder.configurationBlock){
         CellConfigurationCallback callback = (CellConfigurationCallback)builder.configurationBlock;
         callback(cell);
@@ -197,7 +217,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return rowBuilders.count;
+    return builderObjects ? builderObjects.count : rowBuilders.count;
 }
 
 
@@ -212,6 +232,11 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TableRowBuilder *selectedRow = [rowBuilders objectAtIndex:indexPath.row];
+    if(selectedRow.drillDownController){
+        UIViewController *viewController = [[(id)selectedRow.drillDownController alloc] init];
+        [self.navigationController pushViewController:viewController animated:YES];
+        return;
+    }
     if(!selectedRow.toggleable)
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(selectedRow.toggleable){

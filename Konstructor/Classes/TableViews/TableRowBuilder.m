@@ -1,6 +1,6 @@
 //
 //  TableViewObject.m
-//  ThreeHundred
+//  Konstructor
 //
 //  Created by Joshua Stephenson on 5/8/11.
 //  Copyright 2011 fr.ivolo.us All rights reserved.
@@ -25,6 +25,7 @@
 @synthesize accessoryType;
 @synthesize configurationBlock;
 @synthesize fontSize;
+@synthesize drillDownController;
 
 - (void)dealloc{
     [obj release];

@@ -1,6 +1,6 @@
 //
 //  EasyTableViewController.h
-//  ThreeHundred
+//  Konstructor
 //
 //  Created by Joshua Stephenson on 5/8/11.
 //  Copyright 2011 fr.ivolo.us All rights reserved.
@@ -10,6 +10,7 @@
 #import "TableRowBuilder.h"
 
 typedef void (^TableRowBuilderBlock)(TableRowBuilder *builder);
+typedef void (^BulkTableRowBuilderBlock)(id item, TableRowBuilder *builder);
 typedef void (^TableSectionHeaderBuilderBlock)(UIView *header);
 
 @interface KonstructorTableViewController : UIViewController {
@@ -22,13 +23,21 @@ typedef void (^TableSectionHeaderBuilderBlock)(UIView *header);
     IBOutlet UITableView *tableView;
     
     CGFloat tableCellHeight;
+    
+    /* store an array of objects to be used by BulkTableRowBuilderBlock */
+    NSArray *builderObjects;
+    BulkTableRowBuilderBlock bulkBlock;
 }
 
 @property (nonatomic,retain) UITableView *tableView;
 @property (nonatomic,retain) NSMutableArray *rowBuilders;
 @property (nonatomic,retain) NSMutableArray *headerViews;
 
+@property (nonatomic, copy) NSArray *builderObjects;
+
 @property (nonatomic) CGFloat tableCellHeight;
+
+@property (nonatomic, copy) BulkTableRowBuilderBlock bulkBlock;
 
 - (UITableViewCell *)configureGroupedCellAtIndexPath:(NSIndexPath *)indexPath;
 - (UITableViewCell *)configurePlainCellAtIndexPath:(NSIndexPath *)indexPath;
@@ -40,8 +49,13 @@ typedef void (^TableSectionHeaderBuilderBlock)(UIView *header);
 - (NSString *)labelForRow:(TableRowBuilder *)row;
 - (NSString *)customNibCellName;
 - (TableRowBuilder *)addRow:(TableRowBuilderBlock)builderBlock;
+- (void)addRowsFromArray:(NSArray *)objects withBuilder:(BulkTableRowBuilderBlock)builderBlock;
 - (UIView *)addSectionHeader:(TableSectionHeaderBuilderBlock)builderBlock;
+
+/* Use this to load your rows if you wish */
 - (void)buildRows;
+
+/* shorthand for [self.tableView reloadData] */
 - (void)reload;
 
 @end

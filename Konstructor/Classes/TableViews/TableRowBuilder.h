@@ -1,6 +1,6 @@
 //
 //  TableViewObject.h
-//  ThreeHundred
+//  Konstructor
 //
 //  Created by Joshua Stephenson on 5/8/11.
 //  Copyright 2011 fr.ivolo.us All rights reserved.
@@ -17,6 +17,9 @@ typedef void (^ToggleBlock)(void);
     id <NSObject>obj;
     NSString *title;
     NSString *caption;
+    
+    // Transition to this controller when tapped
+    Class *drillDownController;
     
     // UITextField, UISwitch, etc.
     id formElement;
@@ -45,6 +48,9 @@ typedef void (^ToggleBlock)(void);
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *caption;
 @property (nonatomic, retain) id <NSObject>obj;
+
+/* handoff controller */
+@property (nonatomic) Class *drillDownController;
 
 /* add any form element: UITextField, UISwitch, etc... */
 @property (nonatomic, retain) id formElement;
