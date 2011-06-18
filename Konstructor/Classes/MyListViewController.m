@@ -42,29 +42,57 @@
     NSDictionary *shoes = [NSDictionary dictionaryWithObjectsAndKeys:@"Socks", @"name", @"for your feets", @"caption", nil];
     NSDictionary *scarves = [NSDictionary dictionaryWithObjectsAndKeys:@"Scarves", @"name", @"for your neck", @"caption", nil];
     NSArray *items = [[NSArray alloc] initWithObjects:hat, muffs, shoes, scarves, nil];
-    
-    /* Build a Table from an Array */
+
+    /* Build a Table from an Array and fully customize the cell */
     [self addRowsFromArray:items withBuilder:^(id item, TableRowBuilder *builder){
         NSDictionary *current = (NSDictionary *)item;
+        
+        /* Fully customize the cell */
+        builder.configurationBlock = ^(UITableViewCell *cell){
+            UILabel *titleLabel = (UILabel *)[loadedCell viewWithTag:1];
+            titleLabel.text = [current objectForKey:@"name"];
+            
+            UILabel *captionLabel = (UILabel *)[loadedCell viewWithTag:builder.captionTag];
+            captionLabel.text = [current objectForKey:@"caption"];
+            
+            UIImageView *imageView = (UIImageView *)[loadedCell viewWithTag:builder.iconTag];
+            imageView.image = [UIImage imageNamed:builder.selected ? @"comment_plus_48.png" : @"comment_minus_48.png"];
+        };
+    }];
+    
+    /*
+     * Use this to auto-customize
+     *
+     [self addRowsFromArray:items withBuilder:^(id item, TableRowBuilder *builder){
+     NSDictionary *current = (NSDictionary *)item;
+     
         builder.title = [current objectForKey:@"title"];
         builder.caption = [current objectForKey:@"caption"];
         builder.iconName = @"comment_minus_48.png";
         builder.selectedIconName = @"comment_plus_48.png";
         builder.selector = @selector(toggle:);
-    }];
+     }];
+     
+     */
     
-    /* Add a one off row to a table */
-  /*  [self addRow:^(TableRowBuilder *builder){
-        builder.title = @"Hats";
-        builder.caption = @"for your head";
-        builder.iconName = @"comment_minus_48.png";
-        builder.selectedIconName = @"comment_plus_48.png";
-        builder.selector = @selector(toggle:);
-    }];
-    */
+    /*
+     * Use this to add rows one at a time *
+     * You can't mix this with addRowsFromArray (yet)
+     *
+     [self addRow:^(TableRowBuilder *builder){
+         builder.title = @"Hats";
+         builder.caption = @"for your head";
+         builder.iconName = @"comment_minus_48.png";
+         builder.selectedIconName = @"comment_plus_48.png";
+         builder.selector = @selector(toggle:);
+     }];
+     
+     */
     
     [super viewDidLoad];
 }
+
+
 
 - (void)toggle:(TableRowBuilder *)builder{
     builder.selected = !builder.selected;

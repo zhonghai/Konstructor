@@ -81,7 +81,7 @@
     row.obj = _obj;
     row.title = _title;
     row.selector = _selector;
-    UITextField *tv = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 200, 25)];
+    UITextField *tv = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 200, 25)]; // TODO: hard-coded CGRect
     [tv setDelegate:row];
     
     tv.text = val;

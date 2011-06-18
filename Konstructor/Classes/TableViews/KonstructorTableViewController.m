@@ -143,17 +143,17 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     
     TableRowBuilder *builder = [rowBuilders objectAtIndex:indexPath.row];
     if(builderObjects){
-        id item = [builderObjects objectAtIndex:indexPath.row];
-        NSLog(@"item %@", item);
-        bulkBlock(item, builder);
+        bulkBlock([builderObjects objectAtIndex:indexPath.row], builder);
     }
     if(builder.configurationBlock){
         CellConfigurationCallback callback = (CellConfigurationCallback)builder.configurationBlock;
         callback(cell);
         [cell release];
     }else{
-        UILabel *mainLabel = (UILabel *)[loadedCell viewWithTag:builder.titleTag];
-        mainLabel.text = builder.title;
+        UILabel *titleLabel = (UILabel *)[loadedCell viewWithTag:builder.titleTag];
+        titleLabel.hidden = NO;
+        NSLog(@"titleLabel %@", titleLabel);
+        titleLabel.text = builder.title;
         
         UILabel *captionLabel = (UILabel *)[loadedCell viewWithTag:builder.captionTag];
         captionLabel.text = builder.caption;

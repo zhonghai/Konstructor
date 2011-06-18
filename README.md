@@ -7,8 +7,8 @@ Drag these files into your project:
  * TableRowBuilder
  * KonstructorTableViewCell.xib // Optional.  You can pass in your own nib if you wish
 
-Configuration
-============
+Usage
+=====
 
 1. Subclass KonstructorTableViewController
 
@@ -16,12 +16,13 @@ Configuration
 
 1. Customize your table height and cell nib.
 
-    self.tableCellHeight = 100.0; // set the height for each cell
-    self.customCellNibName = @"YourNibName"; // will default to KonstructorTableViewCell
+`self.tableCellHeight = 100.0; // set the height for each cell`
+
+`self.customCellNibName = @"YourNibName"; // will default to KonstructorTableViewCell`
 
 1. Add Cells:
 
-#### There are two ways to do this
+There are two ways to do this:
 
 You can use an array to build your table against.  Here is a mock array to demonstrate this:
     
@@ -47,6 +48,10 @@ Use addRowsFromArray:withBuilder: to build the whole table in one go:
         builder.selectedIconName = @"comment_plus_48.png";
         builder.selector = @selector(toggle:);
     }];
+
+This will give you a view that looks like this:
+
+<img src="http://fr.ivolo.us/konstructor1.png" />
 
 You can also add cells one by one.  This is ideal for settings or configuration views:
 
@@ -81,4 +86,23 @@ You can also add cells one by one.  This is ideal for settings or configuration 
         // Otherwise use [tableView reloadData] to generate your rows
         [super viewDidLoad]; 
     }
+
+If you need full control over the customization of the cell, use the configurationBlock property of TableRowBuilder:
+
+    /* Build a Table from an Array and fully customize the cell */
+    [self addRowsFromArray:items withBuilder:^(id item, TableRowBuilder *builder){
+        NSDictionary *current = (NSDictionary *)item;
+        
+        /* Fully customize the cell */
+        builder.configurationBlock = ^(UITableViewCell *cell){
+            UILabel *titleLabel = (UILabel *)[loadedCell viewWithTag:1];
+            titleLabel.text = [current objectForKey:@"name"];
+            
+            UILabel *captionLabel = (UILabel *)[loadedCell viewWithTag:builder.captionTag];
+            captionLabel.text = [current objectForKey:@"caption"];
+            
+            UIImageView *imageView = (UIImageView *)[loadedCell viewWithTag:builder.iconTag];
+            imageView.image = [UIImage imageNamed:builder.selected ? @"comment_plus_48.png" : @"comment_minus_48.png"];
+        };
+    }];
 
