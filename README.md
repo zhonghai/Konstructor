@@ -14,11 +14,16 @@ Configuration
 
 1. Configure subclass.  Either programatically or using a nib, make sure it has a table view with the delegate and data source wired up properly.
 
+1. Customize your table height and cell nib.
+
+    self.tableCellHeight = 100.0; // set the height for each cell
+    self.customCellNibName = @"YourNibName"; // will default to KonstructorTableViewCell
+
 1. Add Cells:
 
 #### There are two ways to do this
 
-Build from an array like this example array of dictionaries:
+You can use an array to build your table against.  Here is a mock array to demonstrate this:
     
     /* Creating a mock array.  You will likely do this completely differently */
     NSDictionary *hat = [NSDictionary dictionaryWithObjectsAndKeys:@"Gloves", @"name", @"for your hands", @"caption", nil];
@@ -27,10 +32,9 @@ Build from an array like this example array of dictionaries:
     NSDictionary *scarves = [NSDictionary dictionaryWithObjectsAndKeys:@"Scarves", @"name", @"for your neck", @"caption", nil];
     NSArray *items = [[NSArray alloc] initWithObjects:hat, muffs, shoes, scarves, nil];
 
-Any object works fine because you get the object back in the block.
+Any object works fine because you get the object back in the block.  Here is where Konstructor comes in.
 
-    self.tableCellHeight = 100.0; // set the height for each cell
-    self.customCellNibName = @"YourNibName"; // will default to KonstructorTableViewCell
+Use addRowsFromArray:withBuilder: to build the whole table in one go:
 
     /* Build a Table from your array */
     [self addRowsFromArray:items withBuilder:^(id item, TableRowBuilder *builder){
@@ -44,7 +48,7 @@ Any object works fine because you get the object back in the block.
         builder.selector = @selector(toggle:);
     }];
 
-You can add cells one by one.  This is ideal for settings or configuration views.
+You can also add cells one by one.  This is ideal for settings or configuration views:
 
     - (void)viewDidLoad{
         self.tableCellHeight = 100.0;
