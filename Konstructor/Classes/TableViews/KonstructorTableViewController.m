@@ -151,7 +151,6 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
         callback(cell);
         [cell release];
     }else{
-        NSLog(@"titleTag %d", builder.captionTag);
         UILabel *mainLabel = (UILabel *)[loadedCell viewWithTag:builder.titleTag];
         mainLabel.text = builder.title;
         
