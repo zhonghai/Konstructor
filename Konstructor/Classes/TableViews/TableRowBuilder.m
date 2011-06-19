@@ -26,6 +26,7 @@
 @synthesize configurationBlock;
 @synthesize fontSize;
 @synthesize drillDownController;
+@synthesize drillDownBlock;
 
 // view tags
 @synthesize titleTag;
@@ -45,6 +46,12 @@
     iconName = nil;
     [selectedIconName release];
     selectedIconName = nil;
+    [drillDownBlock release];
+    drillDownBlock = nil;
+    [toggleBlock release];
+    toggleBlock = nil;
+    [configurationBlock release];
+    configurationBlock = nil;
     [super dealloc];
 }
 

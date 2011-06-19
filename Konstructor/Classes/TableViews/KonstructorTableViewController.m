@@ -151,6 +151,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
         callback(cell);
         [cell release];
     }else{
+        NSLog(@"titleTag %d", builder.captionTag);
         UILabel *mainLabel = (UILabel *)[loadedCell viewWithTag:builder.titleTag];
         mainLabel.text = builder.title;
         
@@ -241,10 +242,9 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TableRowBuilder *selectedRow = [rowBuilders objectAtIndex:indexPath.row];
-    if(selectedRow.drillDownController){
+    if(selectedRow.drillDownBlock){
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        UIViewController *viewController = [[(id)selectedRow.drillDownController alloc] init];
-        [self.navigationController pushViewController:viewController animated:YES];
+        selectedRow.drillDownBlock();
         return;
     }
     if(!selectedRow.toggleable)

@@ -11,6 +11,7 @@
 
 typedef void (^CellConfigurationCallback)(UITableViewCell *cell);
 typedef void (^ToggleBlock)(void);
+typedef void (^DrillDownBlock)(void);
 
 @interface TableRowBuilder : NSObject <UITextFieldDelegate>{
     SEL selector;
@@ -20,6 +21,7 @@ typedef void (^ToggleBlock)(void);
     
     // Transition to this controller when tapped
     Class drillDownController;
+    DrillDownBlock drillDownBlock;
     
     // UITextField, UISwitch, etc.
     id formElement;
@@ -63,7 +65,6 @@ typedef void (^ToggleBlock)(void);
 @property (nonatomic, getter=isSelected) BOOL selected;
 
 @property (nonatomic) BOOL toggleable;
-@property (nonatomic, copy) ToggleBlock toggleBlock;
 
 /* name of default and selected icon to show */
 @property (nonatomic, retain) NSString *iconName;
@@ -72,7 +73,9 @@ typedef void (^ToggleBlock)(void);
 @property (nonatomic) UITableViewCellAccessoryType accessoryType;
 @property (nonatomic) CGFloat fontSize;
 
-@property (copy) CellConfigurationCallback configurationBlock;
+@property (nonatomic, copy) CellConfigurationCallback configurationBlock;
+@property (nonatomic, copy) ToggleBlock toggleBlock;
+@property (nonatomic, copy) DrillDownBlock drillDownBlock;
 
 // Wiring up to xibs
 @property (nonatomic) NSInteger titleTag;
