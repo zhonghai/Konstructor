@@ -7,7 +7,7 @@
 //
 
 #import "MyListViewController.h"
-
+#import "MyDetailViewController.h"
 
 @implementation MyListViewController
 
@@ -58,6 +58,11 @@
             
             UIImageView *imageView = (UIImageView *)[loadedCell viewWithTag:103];
             imageView.image = [UIImage imageNamed:builder.selected ? @"comment_plus_48.png" : @"comment_minus_48.png"];
+            
+            builder.drillDownBlock = ^{
+                MyDetailViewController *controller = [[MyDetailViewController alloc] initWithItem:[current objectForKey:@"name"]];
+                [self.navigationController pushViewController:controller animated:YES];
+            };
         };
         builder.selector = @selector(toggle:);
     }];

@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MyListViewController.h"
 
 @interface KonstructorAppDelegate : NSObject <UIApplicationDelegate> {
-    IBOutlet MyListViewController *listViewController;
+    IBOutlet UINavigationController *navigationController;
 }
 
+@property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
 @end

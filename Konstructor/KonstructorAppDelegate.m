@@ -12,12 +12,13 @@
 
 
 @synthesize window=_window;
+@synthesize navigationController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
     [self.window makeKeyAndVisible];
-    [self.window addSubview:listViewController.view];
+    [self.window addSubview:navigationController.view];
     return YES;
 }
 
@@ -62,6 +63,7 @@
 
 - (void)dealloc
 {
+    [navigationController release];
     [_window release];
     [super dealloc];
 }

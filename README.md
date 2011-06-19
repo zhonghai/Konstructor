@@ -111,3 +111,17 @@ If you need full control over the customization of the cell, use the configurati
         };
     }];
 
+Drill-Down from one controller to another with the drillDownBlock:
+
+    builder.drillDownBlock = ^{
+        MyDetailViewController *controller = [[MyDetailViewController alloc] initWithItem:[current objectForKey:@"name"]];
+        [self.navigationController pushViewController:controller animated:YES];
+    };
+
+There you have it.  With Konstructor, it's faster to build, quicker to grok and easier to maintain table views.
+
+Contact
+=======
+
+Follow me on twitter @frivolousjosh
+

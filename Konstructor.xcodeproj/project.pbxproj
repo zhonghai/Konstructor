@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		036F0AE013AEA20A00A27697 /* MyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 036F0ADE13AEA20A00A27697 /* MyDetailViewController.m */; };
+		036F0AE413AEA5C200A27697 /* MyDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 036F0AE313AEA5C200A27697 /* MyDetailViewController.xib */; };
 		0375102713AB06A300E3138B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0375102613AB06A300E3138B /* UIKit.framework */; };
 		0375102913AB06A300E3138B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0375102813AB06A300E3138B /* Foundation.framework */; };
 		0375102B13AB06A300E3138B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0375102A13AB06A300E3138B /* CoreGraphics.framework */; };
@@ -40,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		036F0ADD13AEA20900A27697 /* MyDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDetailViewController.h; sourceTree = "<group>"; };
+		036F0ADE13AEA20A00A27697 /* MyDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDetailViewController.m; sourceTree = "<group>"; };
+		036F0AE313AEA5C200A27697 /* MyDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyDetailViewController.xib; sourceTree = "<group>"; };
 		0375102213AB06A300E3138B /* Konstructor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Konstructor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0375102613AB06A300E3138B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0375102813AB06A300E3138B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -177,6 +182,7 @@
 		0375106313AB07FF00E3138B /* XIB */ = {
 			isa = PBXGroup;
 			children = (
+				036F0AE313AEA5C200A27697 /* MyDetailViewController.xib */,
 				03D2C62313AB196700CC1238 /* MyListViewController.xib */,
 				0375106C13AB0D1200E3138B /* KonstructorTableViewCell.xib */,
 				0375106413AB082300E3138B /* MainWindow.xib */,
@@ -198,6 +204,8 @@
 			children = (
 				03D2C62613AB198300CC1238 /* MyListViewController.h */,
 				03D2C62713AB198300CC1238 /* MyListViewController.m */,
+				036F0ADD13AEA20900A27697 /* MyDetailViewController.h */,
+				036F0ADE13AEA20A00A27697 /* MyDetailViewController.m */,
 				03D2C62813AB198300CC1238 /* TableViews */,
 			);
 			path = Classes;
@@ -290,6 +298,7 @@
 				0375107D13AB101100E3138B /* comment_minus_48.png in Resources */,
 				0375107E13AB101100E3138B /* comment_plus_48.png in Resources */,
 				03D2C62413AB196700CC1238 /* MyListViewController.xib in Resources */,
+				036F0AE413AEA5C200A27697 /* MyDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +339,7 @@
 				03D2C62D13AB198300CC1238 /* MyListViewController.m in Sources */,
 				03D2C62E13AB198300CC1238 /* KonstructorTableViewController.m in Sources */,
 				03D2C62F13AB198300CC1238 /* TableRowBuilder.m in Sources */,
+				036F0AE013AEA20A00A27697 /* MyDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
