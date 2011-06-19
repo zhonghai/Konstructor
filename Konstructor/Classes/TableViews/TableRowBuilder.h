@@ -20,7 +20,6 @@ typedef void (^DrillDownBlock)(void);
     NSString *caption;
     
     // Transition to this controller when tapped
-    Class drillDownController;
     DrillDownBlock drillDownBlock;
     
     // UITextField, UISwitch, etc.
@@ -55,9 +54,6 @@ typedef void (^DrillDownBlock)(void);
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *caption;
 @property (nonatomic, retain) id <NSObject>obj;
-
-/* handoff controller */
-@property (nonatomic) Class drillDownController;
 
 /* add any form element: UITextField, UISwitch, etc... */
 @property (nonatomic, retain) id formElement;

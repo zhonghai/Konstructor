@@ -25,7 +25,6 @@
 @synthesize accessoryType;
 @synthesize configurationBlock;
 @synthesize fontSize;
-@synthesize drillDownController;
 @synthesize drillDownBlock;
 
 // view tags
