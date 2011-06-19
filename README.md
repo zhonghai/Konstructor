@@ -1,3 +1,10 @@
+About
+=====
+
+Creating TableViews in iOS is a pain.  It requires jumping to many different methods for the UITableViewDelegate and UITableViewDataSource protocols.  Maintaining and updating them is frustrating and trying to grok how a tableview is architected takes more time than it should.
+
+With Konstructor, all the logic for building a table view is centralized in one place with a declarative and human readable syntax.
+
 Requirements
 ============
 
@@ -25,7 +32,7 @@ Usage
 
 `self.customCellNibName = @"YourNibName"; // will default to KonstructorTableViewCell`
 
-1. Add Cells:
+4. Add Cells:
 
 There are two ways to do this:
 
