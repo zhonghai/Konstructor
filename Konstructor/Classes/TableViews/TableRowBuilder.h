@@ -37,6 +37,8 @@ typedef void (^DrillDownBlock)(void);
     // main icon
     NSString *iconName;
     
+    NSString *imagePath;
+    
     // main icon when selected
     NSString *selectedIconName;
     
@@ -65,6 +67,9 @@ typedef void (^DrillDownBlock)(void);
 /* name of default and selected icon to show */
 @property (nonatomic, retain) NSString *iconName;
 @property (nonatomic, retain) NSString *selectedIconName;
+
+/* full path for image to be loaded in place of icon */
+@property (nonatomic, retain) NSString *imagePath;
 
 @property (nonatomic) UITableViewCellAccessoryType accessoryType;
 @property (nonatomic) CGFloat fontSize;

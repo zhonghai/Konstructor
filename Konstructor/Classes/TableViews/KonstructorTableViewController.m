@@ -24,9 +24,11 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 @synthesize rowBuilders;
 @synthesize headerViews;
 @synthesize tableView;
+@synthesize resultsController;
 @synthesize tableCellHeight;
 @synthesize builderObjects;
 @synthesize bulkBlock;
+@synthesize cellConfigurationBlock;
 @synthesize customCellNibName;
 
 - (id)init{
@@ -50,6 +52,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     [rowBuilders release];
     [headerViews release];
     [bulkBlock release];
+    [cellConfigurationBlock release];
     [super dealloc];
 }
 
@@ -64,6 +67,8 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     headerViews = nil;
     [bulkBlock release];
     bulkBlock = nil;
+    [cellConfigurationBlock release];
+    cellConfigurationBlock = nil;
 }
 
 
@@ -111,6 +116,10 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     return builder;
 }
 
+- (void)bindToFetchedResultsController:(NSFetchedResultsController *)resultsController withCellBlock:(CellConfigurationBlock)cellBlock{
+    self.cellConfigurationBlock = cellBlock;
+}
+
 - (void)buildRows{
     // Not Implemented
 }
@@ -142,30 +151,36 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
         cell = loadedCell;
     }
     
-    TableRowBuilder *builder = [rowBuilders objectAtIndex:indexPath.row];
-    if(builderObjects){
-        bulkBlock([builderObjects objectAtIndex:indexPath.row], builder);
-    }
-    if(builder.configurationBlock){
-        CellConfigurationCallback callback = (CellConfigurationCallback)builder.configurationBlock;
-        callback(cell);
-        [cell release];
+    if(cellConfigurationBlock){
+        NSManagedObject *obj = [_resultsController objectAtIndexPath:indexPath];
+        cellConfigurationBlock(obj);
     }else{
-        NSLog(@"titleTag %d", builder.captionTag);
-        UILabel *mainLabel = (UILabel *)[loadedCell viewWithTag:builder.titleTag];
-        mainLabel.text = builder.title;
-        
-        UILabel *captionLabel = (UILabel *)[loadedCell viewWithTag:builder.captionTag];
-        captionLabel.text = builder.caption;
-        [captionLabel setHidden:builder.caption == nil];
-        
-        UIImageView *imageView = (UIImageView *)[loadedCell viewWithTag:builder.iconTag];
-        imageView.image = [UIImage imageNamed:builder.selected ? builder.selectedIconName : builder.iconName];
-        
-        [cell setSelected:[builder isSelected]];
-        
-        if(builder.accessoryType)
-            cell.accessoryType = builder.accessoryType;
+        TableRowBuilder *builder = [rowBuilders objectAtIndex:indexPath.row];
+        bulkBlock([builderObjects objectAtIndex:indexPath.row], builder);
+        if(builder.configurationBlock){
+            CellConfigurationCallback callback = (CellConfigurationCallback)builder.configurationBlock;
+            callback(cell);
+            [cell release];
+        }else{
+            UILabel *mainLabel = (UILabel *)[loadedCell viewWithTag:builder.titleTag];
+            mainLabel.text = builder.title;
+            
+            UILabel *captionLabel = (UILabel *)[loadedCell viewWithTag:builder.captionTag];
+            captionLabel.text = builder.caption;
+            [captionLabel setHidden:builder.caption == nil];
+            
+            UIImageView *imageView = (UIImageView *)[loadedCell viewWithTag:builder.iconTag];
+            if(builder.iconName){
+                imageView.image = [UIImage imageNamed:builder.selected ? builder.selectedIconName : builder.iconName];
+            }else if(builder.imagePath){
+                imageView.image = [UIImage imageWithContentsOfFile:builder.imagePath];
+            }
+            
+            [cell setSelected:[builder isSelected]];
+            
+            if(builder.accessoryType)
+                cell.accessoryType = builder.accessoryType;
+        }
     }
     
     return cell;
@@ -190,6 +205,11 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 - (void)toggleRow:(TableRowBuilder *)row{
     UISwitch *_switch = (UISwitch *)row.formElement;
     [_switch setOn:!_switch.on animated:YES];
+}
+
+- (NSFetchedResultsController *)resultsController{
+    // overload this if you want to use an NSFetchedResultsController
+    return nil;
 }
 
 - (void)reload{
@@ -227,7 +247,9 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return rowBuilders.count;
+    NSInteger count = _resultsController == nil ? rowBuilders.count : [[[self resultsController] fetchedObjects] count];
+    NSLog(@"count %d", count);
+    return count;
 }
 
 

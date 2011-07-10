@@ -22,6 +22,7 @@
 @synthesize selected;
 @synthesize iconName;
 @synthesize selectedIconName;
+@synthesize imagePath;
 @synthesize accessoryType;
 @synthesize configurationBlock;
 @synthesize fontSize;
@@ -45,6 +46,8 @@
     iconName = nil;
     [selectedIconName release];
     selectedIconName = nil;
+    [imagePath release];
+    imagePath = nil;
     [drillDownBlock release];
     drillDownBlock = nil;
     [toggleBlock release];

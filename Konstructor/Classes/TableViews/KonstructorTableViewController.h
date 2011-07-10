@@ -12,16 +12,20 @@
 typedef void (^TableRowBuilderBlock)(TableRowBuilder *builder);
 typedef void (^BulkTableRowBuilderBlock)(id item, TableRowBuilder *builder);
 typedef void (^TableSectionHeaderBuilderBlock)(UIView *header);
+typedef void (^CellConfigurationBlock)(id item);
 
 @interface KonstructorTableViewController : UIViewController {
     IBOutlet UITableViewCell *loadedCell;
     IBOutlet UITableView *tableView;
+    
+    NSFetchedResultsController *_resultsController;
     
     NSMutableArray *rowBuilders;
     NSArray *builderObjects;
     NSMutableArray *headerViews;
     
     BulkTableRowBuilderBlock bulkBlock;
+    CellConfigurationBlock cellConfigurationBlock;
     
     NSString *customCellNibName;
     CGFloat tableCellHeight;
@@ -29,6 +33,9 @@ typedef void (^TableSectionHeaderBuilderBlock)(UIView *header);
 
 /* Our Table View */
 @property (nonatomic,retain) UITableView *tableView;
+
+/* A Fetched Results Controller if you're using CoreData */
+@property (nonatomic, retain, readonly) NSFetchedResultsController *resultsController;
 
 /* Stores an array of the builder objects which configure rows */
 @property (nonatomic,retain) NSMutableArray *rowBuilders;
@@ -41,6 +48,9 @@ typedef void (^TableSectionHeaderBuilderBlock)(UIView *header);
 
 /* Used to configure the table view with an array of objects */
 @property (nonatomic, copy) BulkTableRowBuilderBlock bulkBlock;
+
+/* Used to configure each cell when using NSFetchedResultsController */
+@property (nonatomic, copy) CellConfigurationBlock cellConfigurationBlock;
 
 /* Used to load a custom nib for each cell */
 @property (nonatomic, retain) NSString *customCellNibName;
@@ -59,6 +69,9 @@ typedef void (^TableSectionHeaderBuilderBlock)(UIView *header);
 
 /* Use this to add a custom section header */
 - (UIView *)addSectionHeader:(TableSectionHeaderBuilderBlock)builderBlock;
+
+/* Use this to generate your table view from a results controller */
+- (void)bindToFetchedResultsController:(NSFetchedResultsController *)resultsController withCellBlock:(CellConfigurationBlock)cellBlock;
 
 /* Use this to load your rows if you wish */
 - (void)buildRows;
