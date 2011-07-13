@@ -28,7 +28,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 @synthesize tableCellHeight;
 @synthesize builderObjects;
 @synthesize bulkBlock;
-@synthesize cellConfigurationBlock;
+@synthesize cellBlock;
 @synthesize customCellNibName;
 
 - (id)init{
@@ -52,7 +52,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     [rowBuilders release];
     [headerViews release];
     [bulkBlock release];
-    [cellConfigurationBlock release];
+    [cellBlock release];
     [super dealloc];
 }
 
@@ -67,8 +67,8 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     headerViews = nil;
     [bulkBlock release];
     bulkBlock = nil;
-    [cellConfigurationBlock release];
-    cellConfigurationBlock = nil;
+    [cellBlock release];
+    cellBlock = nil;
 }
 
 
@@ -117,7 +117,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 }
 
 - (void)bindToFetchedResultsController:(NSFetchedResultsController *)resultsController withCellBlock:(CellConfigurationBlock)cellBlock{
-    self.cellConfigurationBlock = cellBlock;
+    self.cellBlock = cellBlock;
 }
 
 - (void)buildRows{
@@ -151,9 +151,9 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
         cell = loadedCell;
     }
     
-    if(cellConfigurationBlock){
+    if(cellBlock){
         NSManagedObject *obj = [_resultsController objectAtIndexPath:indexPath];
-        cellConfigurationBlock(obj);
+        cellBlock(obj, cell);
     }else{
         TableRowBuilder *builder = [rowBuilders objectAtIndex:indexPath.row];
         bulkBlock([builderObjects objectAtIndex:indexPath.row], builder);
@@ -264,11 +264,15 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TableRowBuilder *selectedRow = [rowBuilders objectAtIndex:indexPath.row];
+    
+    // any drillDownBlock takes priority
     if(selectedRow.drillDownBlock){
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         selectedRow.drillDownBlock();
         return;
     }
+    
+    // fall back to other actions
     if(!selectedRow.toggleable)
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(selectedRow.toggleable){

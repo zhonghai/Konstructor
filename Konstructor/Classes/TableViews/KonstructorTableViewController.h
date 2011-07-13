@@ -12,7 +12,7 @@
 typedef void (^TableRowBuilderBlock)(TableRowBuilder *builder);
 typedef void (^BulkTableRowBuilderBlock)(id item, TableRowBuilder *builder);
 typedef void (^TableSectionHeaderBuilderBlock)(UIView *header);
-typedef void (^CellConfigurationBlock)(id item);
+typedef void (^CellConfigurationBlock)(id item, UITableViewCell *cell);
 
 @interface KonstructorTableViewController : UIViewController {
     IBOutlet UITableViewCell *loadedCell;
@@ -25,7 +25,7 @@ typedef void (^CellConfigurationBlock)(id item);
     NSMutableArray *headerViews;
     
     BulkTableRowBuilderBlock bulkBlock;
-    CellConfigurationBlock cellConfigurationBlock;
+    CellConfigurationBlock cellBlock;
     
     NSString *customCellNibName;
     CGFloat tableCellHeight;
@@ -50,7 +50,7 @@ typedef void (^CellConfigurationBlock)(id item);
 @property (nonatomic, copy) BulkTableRowBuilderBlock bulkBlock;
 
 /* Used to configure each cell when using NSFetchedResultsController */
-@property (nonatomic, copy) CellConfigurationBlock cellConfigurationBlock;
+@property (nonatomic, copy) CellConfigurationBlock cellBlock;
 
 /* Used to load a custom nib for each cell */
 @property (nonatomic, retain) NSString *customCellNibName;
