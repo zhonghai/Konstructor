@@ -116,8 +116,8 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     return builder;
 }
 
-- (void)bindToFetchedResultsController:(NSFetchedResultsController *)resultsController withCellBlock:(CellConfigurationBlock)cellBlock{
-    self.cellBlock = cellBlock;
+- (void)bindToFetchedResultsController:(NSFetchedResultsController *)resultsController withCellBlock:(CellConfigurationBlock)_cellBlock{
+    self.cellBlock = _cellBlock;
 }
 
 - (void)buildRows{
@@ -156,12 +156,15 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
         cellBlock(obj, cell);
     }else{
         TableRowBuilder *builder = [rowBuilders objectAtIndex:indexPath.row];
-        bulkBlock([builderObjects objectAtIndex:indexPath.row], builder);
-        if(builder.configurationBlock){
+        if(bulkBlock){
+            bulkBlock([builderObjects objectAtIndex:indexPath.row], builder);
+        }
+        else if(builder.configurationBlock){
             CellConfigurationCallback callback = (CellConfigurationCallback)builder.configurationBlock;
             callback(cell);
             [cell release];
-        }else{
+        }
+        else{
             UILabel *mainLabel = (UILabel *)[loadedCell viewWithTag:builder.titleTag];
             mainLabel.text = builder.title;
             
@@ -263,36 +266,42 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 }
 
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    TableRowBuilder *selectedRow = [rowBuilders objectAtIndex:indexPath.row];
+    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if([rowBuilders count] > indexPath.row){
+        TableRowBuilder *selectedRow = [rowBuilders objectAtIndex:indexPath.row];
     
-    // any drillDownBlock takes priority
-    if(selectedRow.drillDownBlock){
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        selectedRow.drillDownBlock();
-        return;
-    }
-    
-    // fall back to other actions
-    if(!selectedRow.toggleable)
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if(selectedRow.toggleable){
-        selectedRow.on = ![selectedRow isOn];
-        if(selectedRow.toggleBlock){
-            selectedRow.toggleBlock();
-        }else if(selectedRow.obj){
-            [selectedRow.obj performSelector:selectedRow.selector withObject:[NSNumber numberWithBool:selectedRow.on]];
+        // any drillDownBlock takes priority
+        if(selectedRow.drillDownBlock){
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            selectedRow.drillDownBlock();
+            return;
+        }
+        
+        // fall back to other actions
+        if(!selectedRow.toggleable)
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        if(selectedRow.toggleable){
+            selectedRow.on = ![selectedRow isOn];
+            if(selectedRow.toggleBlock){
+                selectedRow.toggleBlock();
+            }else if(selectedRow.obj){
+                [selectedRow.obj performSelector:selectedRow.selector withObject:[NSNumber numberWithBool:selectedRow.on]];
+            }else{
+                [self performSelector:selectedRow.selector];
+            }
         }else{
-            [self performSelector:selectedRow.selector];
+            if(selectedRow.formElement){
+                [selectedRow.formElement becomeFirstResponder];
+            }else if(selectedRow.selector){
+                if(selectedRow.obj)
+                    [selectedRow.obj performSelector:selectedRow.selector withObject:self];
+                else
+                    [self performSelector:selectedRow.selector withObject:[selectedRow retain]];
+            }
         }
-    }else{
-        if(selectedRow.formElement){
-            [selectedRow.formElement becomeFirstResponder];
-        }else if(selectedRow.selector){
-            if(selectedRow.obj)
-                [selectedRow.obj performSelector:selectedRow.selector withObject:self];
-            else
-                [self performSelector:selectedRow.selector withObject:[selectedRow retain]];
-        }
+    }
+    else{
+        // Nothing to do
     }
 }
   

@@ -98,6 +98,20 @@
     return row;
 }
 
++ (id)passwordFieldWithObject:(id)_obj title:(NSString *)_title value:(NSString *)val andSelector:(SEL)_selector{
+    TableRowBuilder *row = [[[self class] alloc] init];
+    row.obj = _obj;
+    row.title = _title;
+    row.selector = _selector;
+    UITextField *tv = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 200, 25)]; // TODO: hard-coded CGRect
+    tv.secureTextEntry = YES;
+    [tv setDelegate:row];
+    
+    tv.text = val;
+    row.formElement = tv;
+    return row;
+}
+
 + (id)buttonWithObject:(id)_obj andSelector:(SEL)_selector{
     TableRowBuilder *row = [[[self class] alloc] init];
     row.selector = _selector;
@@ -134,6 +148,20 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     [self.obj performSelector:selector withObject:textField.text];
+}
+
+- (void)setKeyboardType:(UIKeyboardType)keyboard
+{
+    if(formElement && [formElement isKindOfClass:[UITextField class]]){
+        ((UITextField *)formElement).keyboardType = keyboard;
+    }
+}
+
+- (void)setAutoCorrection:(UITextAutocorrectionType)correction autoCapitalization:(UITextAutocapitalizationType)capitalization{
+    if(formElement && [formElement isKindOfClass:[UITextField class]]){
+        ((UITextField *)formElement).autocorrectionType = correction;
+        ((UITextField *)formElement).autocapitalizationType = capitalization;
+    }        
 }
 
 @end

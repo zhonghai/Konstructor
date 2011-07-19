@@ -95,6 +95,9 @@ typedef void (^DrillDownBlock)(void);
 // text input
 + (id)textFieldWithObject:(id)_obj title:(NSString *)_title value:(NSString *)val andSelector:(SEL)_selector;
 
+// password input
++ (id)passwordFieldWithObject:(id)_obj title:(NSString *)_title value:(NSString *)val andSelector:(SEL)_selector;
+
 // buttons
 + (id)buttonWithObject:(id)_obj andSelector:(SEL)_selector;
 + (id)buttonWithObject:(id)_obj title:(NSString *)_title andSelector:(SEL)_selector;
@@ -104,5 +107,10 @@ typedef void (^DrillDownBlock)(void);
 
 // generic toggle
 + (id)toggleWithObject:(id)_obj andSelector:(SEL)_selector;
+
+/* Configuration options */
+- (void)setKeyboardType:(UIKeyboardType)keyboard;
+
+- (void)setAutoCorrection:(UITextAutocorrectionType)correction autoCapitalization:(UITextAutocapitalizationType)capitalization;
 
 @end
