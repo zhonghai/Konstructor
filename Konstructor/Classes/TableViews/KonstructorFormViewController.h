@@ -12,6 +12,5 @@
     
 }
 
-- (void)addInputRow:(FormBuilder *)builder;
 
 @end

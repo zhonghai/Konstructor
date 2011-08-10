@@ -19,10 +19,6 @@
     return self;
 }
 
-- (void)addInputRow:(FormBuilder *)builder{
-    
-}
-
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.

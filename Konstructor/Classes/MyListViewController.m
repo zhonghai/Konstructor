@@ -37,6 +37,18 @@
 #pragma mark - View lifecycle
 - (void)viewDidLoad{
     self.tableCellHeight = 100.0;
+    [self addSectionHeader:^(UIView *view){
+        CGRect frame = self.view.frame;
+        frame.size.height = 25.0;
+        view.frame = frame;
+        frame.size.height = 20;
+        frame.size.width -=20;
+        frame.origin.x += 10;
+        UILabel *label = [[[UILabel alloc] init] autorelease];
+        label.text = NSLocalizedString(@"Clothing", "clothing");
+        label.frame = frame;
+        [view addSubview:label];
+    }];
     NSDictionary *gloves = [NSDictionary dictionaryWithObjectsAndKeys:@"Gloves", @"name", @"for your hands", @"caption", nil];
     NSDictionary *muffs = [NSDictionary dictionaryWithObjectsAndKeys:@"Muffs", @"name", @"for your ears", @"caption", nil];
     NSDictionary *shoes = [NSDictionary dictionaryWithObjectsAndKeys:@"Socks", @"name", @"for your feets", @"caption", nil];
@@ -47,9 +59,10 @@
     
     [self addRowsFromArray:items withBuilder:^(id item, TableRowBuilder *builder){
         NSDictionary *current = (NSDictionary *)item;
-        
-        /* Fully customize the cell */
+        NSLog(@"current %@", current);
+        // Fully customize the cell 
         builder.configurationBlock = ^(UITableViewCell *cell){
+            NSLog(@"configuring cell...");
             UILabel *titleLabel = (UILabel *)[loadedCell viewWithTag:101];
             titleLabel.text = [current objectForKey:@"name"];
             

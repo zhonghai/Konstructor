@@ -7,7 +7,7 @@
 //
 
 #import "KonstructorTableViewController.h"
-#import "NINonRetainingCollections.h"
+#import "NINonRetainingCollections.h" 
 #import "UIView+Konstructor.h"
 
 @interface KonstructorTableViewController (PrivateMethods)
@@ -15,6 +15,7 @@
 - (NSString *)labelForRow:(TableRowBuilder *)row;
 - (UITableViewCell *)configureGroupedCellAtIndexPath:(NSIndexPath *)indexPath;
 - (UITableViewCell *)configurePlainCellAtIndexPath:(NSIndexPath *)indexPath;
+- (void)setup;
 - (void)rowTapped:(TableRowBuilder *)row;
 - (void)toggleRow:(TableRowBuilder *)row;
 - (void)showFormElementForRow:(TableRowBuilder *)row;
@@ -42,19 +43,13 @@ static CGFloat const GlobalPickerHeight = 160.0;
 
 - (id)init{
     self = [super init];
-    self.customCellNibName = KonstructorCellIdentifier;
-    self.sections = [NSMutableArray array];
-    self.rowBuilders = [NSMutableArray array];
-    self.headerViews = [NSMutableArray array];
-    self.elementsToHide = NICreateNonRetainingMutableArray();
+    [self setup];
     return self;
 }
 
 - (void)awakeFromNib{
+    [self setup];
     [super awakeFromNib];
-    self.customCellNibName = KonstructorCellIdentifier;
-    self.rowBuilders = [NSMutableArray array];
-    self.headerViews = [NSMutableArray array];
 }
 
 - (void)dealloc
@@ -124,8 +119,9 @@ static CGFloat const GlobalPickerHeight = 160.0;
 # pragma mark EasyTableViewController
 
 - (UIView *)addSectionHeader:(TableSectionHeaderBuilderBlock)builderBlock{
-    [self.sections addObject:self.rowBuilders];
+    self.rowBuilders = nil;
     self.rowBuilders = [NSMutableArray array];
+    [self.sections addObject:self.rowBuilders];
     UIView *view = [[UIView alloc] init];    
     view.backgroundColor = [UIColor clearColor];
     [headerViews addObject:view];
@@ -236,11 +232,7 @@ static CGFloat const GlobalPickerHeight = 160.0;
         if(bulkBlock){
             bulkBlock([builderObjects objectAtIndex:indexPath.row], builder);
         }
-        else if(builder.configurationBlock){
-            CellConfigurationCallback callback = (CellConfigurationCallback)builder.configurationBlock;
-            callback(cell);
-            Block_release(callback);
-        }
+        
         else{
             UILabel *mainLabel = (UILabel *)[loadedCell viewWithTag:builder.titleTag];
             mainLabel.text = builder.title;
@@ -260,6 +252,11 @@ static CGFloat const GlobalPickerHeight = 160.0;
             
             if(builder.accessoryType)
                 cell.accessoryType = builder.accessoryType;
+        }
+        if(builder.configurationBlock){
+            CellConfigurationCallback callback = (CellConfigurationCallback)builder.configurationBlock;
+            callback(cell);
+            Block_release(callback);
         }
     }
     
@@ -355,14 +352,14 @@ static CGFloat const GlobalPickerHeight = 160.0;
 #pragma mark Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if(!headerViews.count) return 0.0f;
+    if(!headerViews.count < section) return 0.0f;
     
     UIView *view = [headerViews objectAtIndex:section];
     return view.frame.size.height;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if(!headerViews.count) return nil;
+    if(headerViews.count < section) return nil;
     
     return [headerViews objectAtIndex:section];
 }
@@ -382,6 +379,8 @@ static CGFloat const GlobalPickerHeight = 160.0;
         count = [[[self resultsController] sections] count];
     else
         count = [self.sections count];
+    
+    NSLog(@"sections %d", count);
     return count;
 }
 
@@ -393,6 +392,8 @@ static CGFloat const GlobalPickerHeight = 160.0;
     else
         count = [[self.sections objectAtIndex:section] count];
     
+    
+    NSLog(@"rows %d", count);
     return count;
 }
 
@@ -421,6 +422,7 @@ static CGFloat const GlobalPickerHeight = 160.0;
         TableRowBuilder *selectedRow = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         // any drillDownBlock takes priority
         if(selectedRow.drillDownBlock){
+            [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
             selectedRow.drillDownBlock();
             return;
         }
@@ -461,6 +463,15 @@ static CGFloat const GlobalPickerHeight = 160.0;
 
 - (void)keyboardDidHide:(id)sender{
     tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);    
+}
+
+# pragma mark - Private
+- (void)setup{
+    self.customCellNibName = KonstructorCellIdentifier;
+    self.sections = [NSMutableArray array];
+    self.rowBuilders = [NSMutableArray array];
+    self.headerViews = [NSMutableArray array];
+    self.elementsToHide = NICreateNonRetainingMutableArray();
 }
 
 @end

@@ -40,6 +40,7 @@
 - (void)viewDidLoad
 {
     self.title = item;
+    [self addSectionHeader:^(UIView *view){}];
     
     self.tableCellHeight = 100.0f;
     [self addRow:^(TableRowBuilder *builder){

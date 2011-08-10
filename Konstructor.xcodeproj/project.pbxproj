@@ -33,6 +33,8 @@
 		03D2C62D13AB198300CC1238 /* MyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D2C62713AB198300CC1238 /* MyListViewController.m */; };
 		03D2C62E13AB198300CC1238 /* KonstructorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D2C62A13AB198300CC1238 /* KonstructorTableViewController.m */; };
 		03D2C62F13AB198300CC1238 /* TableRowBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D2C62C13AB198300CC1238 /* TableRowBuilder.m */; };
+		220D625F13F325C50023E1C3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220D625E13F325C50023E1C3 /* CoreData.framework */; };
+		220D626313F327630023E1C3 /* NINonRetainingCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = 220D626213F327630023E1C3 /* NINonRetainingCollections.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +84,9 @@
 		03D2C62A13AB198300CC1238 /* KonstructorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KonstructorTableViewController.m; sourceTree = "<group>"; };
 		03D2C62B13AB198300CC1238 /* TableRowBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableRowBuilder.h; sourceTree = "<group>"; };
 		03D2C62C13AB198300CC1238 /* TableRowBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableRowBuilder.m; sourceTree = "<group>"; };
+		220D625E13F325C50023E1C3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		220D626113F327630023E1C3 /* NINonRetainingCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NINonRetainingCollections.h; sourceTree = "<group>"; };
+		220D626213F327630023E1C3 /* NINonRetainingCollections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NINonRetainingCollections.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				220D625F13F325C50023E1C3 /* CoreData.framework in Frameworks */,
 				0375102713AB06A300E3138B /* UIKit.framework in Frameworks */,
 				0375102913AB06A300E3138B /* Foundation.framework in Frameworks */,
 				0375102B13AB06A300E3138B /* CoreGraphics.framework in Frameworks */,
@@ -111,6 +117,7 @@
 		0375101713AB06A300E3138B = {
 			isa = PBXGroup;
 			children = (
+				220D625E13F325C50023E1C3 /* CoreData.framework */,
 				0375102C13AB06A300E3138B /* Konstructor */,
 				0375104613AB06A400E3138B /* KonstructorTests */,
 				0375102513AB06A300E3138B /* Frameworks */,
@@ -212,6 +219,8 @@
 		03D2C62513AB198300CC1238 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				220D626113F327630023E1C3 /* NINonRetainingCollections.h */,
+				220D626213F327630023E1C3 /* NINonRetainingCollections.m */,
 				03D2C62613AB198300CC1238 /* MyListViewController.h */,
 				03D2C62713AB198300CC1238 /* MyListViewController.m */,
 				036F0ADD13AEA20900A27697 /* MyDetailViewController.h */,
@@ -361,6 +370,7 @@
 				036F0AE013AEA20A00A27697 /* MyDetailViewController.m in Sources */,
 				03870B5B13E488BF006367B2 /* MyFormViewController.m in Sources */,
 				03870B6013E4893B006367B2 /* KonstructorFormViewController.m in Sources */,
+				220D626313F327630023E1C3 /* NINonRetainingCollections.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
