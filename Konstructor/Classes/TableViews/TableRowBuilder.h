@@ -23,7 +23,7 @@ typedef void (^DrillDownBlock)(void);
     DrillDownBlock drillDownBlock;
     
     // UITextField, UISwitch, etc.
-    id formElement;
+    UIView *formElement;
     
     // for UISwitch
     BOOL on;
@@ -50,6 +50,9 @@ typedef void (^DrillDownBlock)(void);
     NSInteger titleTag;
     NSInteger captionTag;
     NSInteger iconTag;
+    
+    // date Label
+    UILabel *dateLabel;
 }
 
 @property (nonatomic) SEL selector;
@@ -58,7 +61,7 @@ typedef void (^DrillDownBlock)(void);
 @property (nonatomic, retain) id <NSObject>obj;
 
 /* add any form element: UITextField, UISwitch, etc... */
-@property (nonatomic, retain) id formElement;
+@property (nonatomic, retain) UIView *formElement;
 @property (nonatomic, getter=isOn) BOOL on;
 @property (nonatomic, getter=isSelected) BOOL selected;
 
@@ -83,6 +86,9 @@ typedef void (^DrillDownBlock)(void);
 @property (nonatomic) NSInteger captionTag;
 @property (nonatomic) NSInteger iconTag;
 
+// Label for date picker rows
+@property (nonatomic, retain) UILabel *dateLabel;
+
 // Use this instead of [[... alloc] init];
 + (id)genericBuilder;
 
@@ -98,6 +104,9 @@ typedef void (^DrillDownBlock)(void);
 // password input
 + (id)passwordFieldWithObject:(id)_obj title:(NSString *)_title value:(NSString *)val andSelector:(SEL)_selector;
 
+// date input
++ (id)dateFieldWithObject:(id)_obj title:(NSString *)_title andSelector:(SEL)_selector;
+
 // buttons
 + (id)buttonWithObject:(id)_obj andSelector:(SEL)_selector;
 + (id)buttonWithObject:(id)_obj title:(NSString *)_title andSelector:(SEL)_selector;
@@ -112,5 +121,8 @@ typedef void (^DrillDownBlock)(void);
 - (void)setKeyboardType:(UIKeyboardType)keyboard;
 
 - (void)setAutoCorrection:(UITextAutocorrectionType)correction autoCapitalization:(UITextAutocapitalizationType)capitalization;
+
+/* selected date for date pickers */
+- (NSDate *)selectedDate;
 
 @end

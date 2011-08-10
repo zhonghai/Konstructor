@@ -7,7 +7,8 @@
 //
 
 #import "KonstructorTableViewController.h"
-static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
+#import "NINonRetainingCollections.h"
+#import "UIView+Konstructor.h"
 
 @interface KonstructorTableViewController (PrivateMethods)
 
@@ -16,11 +17,16 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 - (UITableViewCell *)configurePlainCellAtIndexPath:(NSIndexPath *)indexPath;
 - (void)rowTapped:(TableRowBuilder *)row;
 - (void)toggleRow:(TableRowBuilder *)row;
+- (void)showFormElementForRow:(TableRowBuilder *)row;
+- (void)hideFormElements;
 - (void)addToggleForCell:(UITableViewCell *)cell builder:(TableRowBuilder *)builder;
 
 @end
 
+static CGFloat const GlobalPickerHeight = 160.0;
+
 @implementation KonstructorTableViewController
+@synthesize sections;
 @synthesize rowBuilders;
 @synthesize headerViews;
 @synthesize tableView;
@@ -29,13 +35,18 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 @synthesize builderObjects;
 @synthesize bulkBlock;
 @synthesize cellBlock;
+@synthesize tableDrillDownBlock;
+@synthesize cellBuilderBlock;
 @synthesize customCellNibName;
+@synthesize elementsToHide;
 
 - (id)init{
     self = [super init];
     self.customCellNibName = KonstructorCellIdentifier;
+    self.sections = [NSMutableArray array];
     self.rowBuilders = [NSMutableArray array];
     self.headerViews = [NSMutableArray array];
+    self.elementsToHide = NICreateNonRetainingMutableArray();
     return self;
 }
 
@@ -53,6 +64,8 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     [headerViews release];
     [bulkBlock release];
     [cellBlock release];
+    [cellBuilderBlock release];
+    [tableDrillDownBlock release];
     [super dealloc];
 }
 
@@ -61,6 +74,8 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     [super didReceiveMemoryWarning];
     [tableView release];
     tableView = nil;
+    [sections release];
+    sections = nil;
     [rowBuilders release];
     rowBuilders = nil;
     [headerViews release];
@@ -69,6 +84,10 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     bulkBlock = nil;
     [cellBlock release];
     cellBlock = nil;
+    [cellBuilderBlock release];
+    cellBuilderBlock = nil;
+    [tableDrillDownBlock release];
+    tableDrillDownBlock = nil;
 }
 
 
@@ -78,19 +97,35 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 {
     [super viewDidLoad];
     [tableView reloadData];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewDidUnload
 {
-    rowBuilders = nil;
+    
+    [tableView release];
     tableView = nil;
+    [sections release];
+    sections = nil;
+    [rowBuilders release];
+    rowBuilders = nil;
+    [headerViews release];
+    headerViews = nil;
+    [bulkBlock release];
+    bulkBlock = nil;
+    [cellBlock release];
+    cellBlock = nil;
+    [cellBuilderBlock release];
+    cellBuilderBlock = nil;
+    [tableDrillDownBlock release];
+    tableDrillDownBlock = nil;
     [super viewDidUnload];
 }
 
 # pragma mark EasyTableViewController
 
 - (UIView *)addSectionHeader:(TableSectionHeaderBuilderBlock)builderBlock{
+    [self.sections addObject:self.rowBuilders];
+    self.rowBuilders = [NSMutableArray array];
     UIView *view = [[UIView alloc] init];    
     view.backgroundColor = [UIColor clearColor];
     [headerViews addObject:view];
@@ -112,7 +147,22 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     TableRowBuilder *builder = [TableRowBuilder genericBuilder];
     _block(builder);
     Block_release(_block);
+    NSMutableArray *currentSection = (NSMutableArray *)[self.sections lastObject];
+    [currentSection addObject:builder];
+    return builder;
+}
+
+- (void)addRowWithBuilder:(TableRowBuilder *)builder
+{
+    if(![self.sections count]) return;
+    [[self.sections lastObject] addObject:builder];
+}
+
+- (TableRowBuilder *)addRowWithCellBlock:(CellConfigurationBlock)_cellBlock
+{
+    TableRowBuilder *builder = [TableRowBuilder genericBuilder];
     [self.rowBuilders addObject:builder];
+    self.cellBlock = _cellBlock;
     return builder;
 }
 
@@ -120,21 +170,39 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     self.cellBlock = _cellBlock;
 }
 
+- (void)bindToFetchedResultsController:(NSFetchedResultsController *)resultsController withCellBuilderBlock:(CellBuilderBlock)builderBlock
+{
+    TableRowBuilder *builder = [TableRowBuilder genericBuilder];
+    [self.rowBuilders addObject:builder];
+    self.cellBuilderBlock = builderBlock;
+}
+
 - (void)buildRows{
     // Not Implemented
 }
 
 - (UITableViewCell *)configureGroupedCellAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *KonstructorCellIdentifier = @"KonstructorCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:KonstructorCellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.customCellNibName];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:KonstructorCellIdentifier] autorelease];
     }
-    TableRowBuilder *builder = [rowBuilders objectAtIndex:indexPath.row];
+    TableRowBuilder *builder = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.textLabel.text = builder.title == nil ? [self labelForRow:builder] : builder.title;
-    cell.selectionStyle = (builder.formElement || (builder.selector && builder.obj)) ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleGray;
     if(builder.formElement){
-        [cell addSubview:builder.formElement];
+        if([builder.formElement isPicker]){
+            // wait until the cell is tapped to show the pickers
+            // add a date label
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            [cell addSubview:builder.dateLabel];
+            builder.dateLabel.text = [self captionForRow:builder];
+        }
+        else{
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell addSubview:builder.formElement];
+        }
+    }
+    else{
+        cell.selectionStyle = (builder.selector && builder.obj) ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleGray;
     }
     if(builder.toggleBlock)
         [self addToggleForCell:cell builder:builder];
@@ -144,25 +212,34 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 }
 
 - (UITableViewCell *)configurePlainCellAtIndexPath:(NSIndexPath *)indexPath{    
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:self.customCellNibName];
-    NSLog(@"customCellNibName %@", self.customCellNibName);
+    UITableViewCell *cell = [self dequeueCellForTableView:self.tableView];
+    NSLog(@"Using custom nib: %@", self.customCellNibName);
     if (cell == nil) {
         [[NSBundle mainBundle] loadNibNamed:self.customCellNibName owner:self options:NULL];
         cell = loadedCell;
     }
-    
-    if(cellBlock){
+    NSAssert(cell != nil, @"Make sure you connect the table view cell to the loadedCell in you nib", nil);
+    if(cellBlock){ // TODO: cellBlock should go away in favor of cellBuilderBlock
+        if(_resultsController){
+            NSManagedObject *obj = [_resultsController objectAtIndexPath:indexPath];
+            cellBlock(obj, cell);
+        }else{
+            cellBlock(nil, cell);
+        }
+    }
+    else if(cellBuilderBlock){
         NSManagedObject *obj = [_resultsController objectAtIndexPath:indexPath];
-        cellBlock(obj, cell);
-    }else{
-        TableRowBuilder *builder = [rowBuilders objectAtIndex:indexPath.row];
+        cellBuilderBlock(obj, cell, [TableRowBuilder genericBuilder]);
+    }
+    else{
+        TableRowBuilder *builder = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         if(bulkBlock){
             bulkBlock([builderObjects objectAtIndex:indexPath.row], builder);
         }
         else if(builder.configurationBlock){
             CellConfigurationCallback callback = (CellConfigurationCallback)builder.configurationBlock;
             callback(cell);
-            [cell release];
+            Block_release(callback);
         }
         else{
             UILabel *mainLabel = (UILabel *)[loadedCell viewWithTag:builder.titleTag];
@@ -189,8 +266,13 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     return cell;
 }
 
+- (UITableViewCell *)dequeueCellForTableView:(UITableView *)_tableView
+{
+    return (UITableViewCell *)[_tableView dequeueReusableCellWithIdentifier:self.customCellNibName];
+}
+
 - (void)addToggleForCell:(UITableViewCell *)cell builder:(TableRowBuilder *)builder{
-    UISwitch *sw = [[UISwitch alloc] initWithFrame:CGRectMake(200.0f, 8.0f, 60.0f, 20.0f)];
+    UISwitch *sw = [[[UISwitch alloc] initWithFrame:CGRectMake(200.0f, 8.0f, 60.0f, 20.0f)] autorelease];
     [sw setOn:builder.selected];
     builder.formElement = sw;
     builder.toggleable = YES;
@@ -202,12 +284,62 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 }
 
 - (NSString *)labelForRow:(TableRowBuilder *)row{
+    return row.title;
+}
+
+- (NSString *)captionForRow:(TableRowBuilder *)row
+{
     return [row description];
 }
 
 - (void)toggleRow:(TableRowBuilder *)row{
     UISwitch *_switch = (UISwitch *)row.formElement;
     [_switch setOn:!_switch.on animated:YES];
+}
+
+- (void)hideFormElements{
+    for(UIView *view in self.elementsToHide){
+        CGRect newFrame = self.view.frame;
+        newFrame.origin.y = self.view.frame.size.height;
+        newFrame.size.height = GlobalPickerHeight;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:KonstructorPickerWillHideNotification object:nil];
+        [UIView animateWithDuration:0.4 
+                         animations:^{
+                             view.frame = newFrame;
+                         }
+                         completion:^(BOOL finished){
+                             [view removeFromSuperview];
+                             [self.elementsToHide removeObject:view];
+                         }];
+    }
+}
+
+- (void)showFormElementForRow:(TableRowBuilder *)row{
+    for(NSMutableArray *section in self.sections){
+        for(TableRowBuilder *builder in section){
+            // hide all text fields
+            [builder.formElement resignFirstResponder];
+        }
+    }
+    UIView *view = row.formElement;
+    if(![view isPicker]) return;
+    
+    CGRect initialFrame = self.view.frame;
+    initialFrame.origin.y = self.view.frame.size.height;
+    initialFrame.size.height = GlobalPickerHeight;
+    
+    CGRect endFrame = initialFrame;
+    endFrame.origin.y -= GlobalPickerHeight;
+        
+    view.frame = initialFrame;
+    [self.view addSubview:row.formElement];
+    [self.elementsToHide addObject:row.formElement];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KonstructorPickerWillShowNotification object:nil];
+    [UIView animateWithDuration:0.4 
+                     animations:^{
+                         view.frame = endFrame;
+                     }];
 }
 
 - (NSFetchedResultsController *)resultsController{
@@ -245,13 +377,22 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    NSInteger count = 0;
+    if([self resultsController])
+        count = [[[self resultsController] sections] count];
+    else
+        count = [self.sections count];
+    return count;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger count = _resultsController == nil ? rowBuilders.count : [[[self resultsController] fetchedObjects] count];
-    NSLog(@"count %d", count);
+    NSInteger count = 0;
+    if([self resultsController])
+        count = [[[[self resultsController] sections] objectAtIndex:section] numberOfObjects];
+    else
+        count = [[self.sections objectAtIndex:section] count];
+    
     return count;
 }
 
@@ -266,20 +407,26 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
 }
 
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if([rowBuilders count] > indexPath.row){
-        TableRowBuilder *selectedRow = [rowBuilders objectAtIndex:indexPath.row];
-    
+    [self hideFormElements];
+    if(![sections count] && !tableDrillDownBlock){
+        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+        return;
+    }
+    else if(tableDrillDownBlock){
+        id item = [[self resultsController] objectAtIndexPath:indexPath];
+        tableDrillDownBlock(item);
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+    else if([[sections objectAtIndex:indexPath.section] count] > indexPath.row){
+        TableRowBuilder *selectedRow = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         // any drillDownBlock takes priority
         if(selectedRow.drillDownBlock){
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
             selectedRow.drillDownBlock();
             return;
         }
-        
-        // fall back to other actions
         if(!selectedRow.toggleable)
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+        // fall back to other actions
         if(selectedRow.toggleable){
             selectedRow.on = ![selectedRow isOn];
             if(selectedRow.toggleBlock){
@@ -291,6 +438,7 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
             }
         }else{
             if(selectedRow.formElement){
+                [self showFormElementForRow:selectedRow];
                 [selectedRow.formElement becomeFirstResponder];
             }else if(selectedRow.selector){
                 if(selectedRow.obj)
@@ -305,11 +453,10 @@ static NSString *KonstructorCellIdentifier = @"KonstructorTableViewCell";
     }
 }
   
-
 #pragma Keyboard
 
 - (void)keyboardDidShow:(id)sender{
-    tableView.contentInset = UIEdgeInsetsMake(0, 0, 160, 0);
+    tableView.contentInset = UIEdgeInsetsMake(0, 0, 180, 0);
 }
 
 - (void)keyboardDidHide:(id)sender{

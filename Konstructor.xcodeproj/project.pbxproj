@@ -25,6 +25,10 @@
 		0375106D13AB0D1200E3138B /* KonstructorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0375106C13AB0D1200E3138B /* KonstructorTableViewCell.xib */; };
 		0375107D13AB101100E3138B /* comment_minus_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 0375107B13AB101100E3138B /* comment_minus_48.png */; };
 		0375107E13AB101100E3138B /* comment_plus_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 0375107C13AB101100E3138B /* comment_plus_48.png */; };
+		03870B5B13E488BF006367B2 /* MyFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03870B5913E488BF006367B2 /* MyFormViewController.m */; };
+		03870B5C13E488BF006367B2 /* MyFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03870B5A13E488BF006367B2 /* MyFormViewController.xib */; };
+		03870B6013E4893B006367B2 /* KonstructorFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03870B5E13E4893B006367B2 /* KonstructorFormViewController.m */; };
+		03870B6113E4893B006367B2 /* KonstructorFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03870B5F13E4893B006367B2 /* KonstructorFormViewController.xib */; };
 		03D2C62413AB196700CC1238 /* MyListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D2C62313AB196700CC1238 /* MyListViewController.xib */; };
 		03D2C62D13AB198300CC1238 /* MyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D2C62713AB198300CC1238 /* MyListViewController.m */; };
 		03D2C62E13AB198300CC1238 /* KonstructorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D2C62A13AB198300CC1238 /* KonstructorTableViewController.m */; };
@@ -65,6 +69,12 @@
 		0375106C13AB0D1200E3138B /* KonstructorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KonstructorTableViewCell.xib; sourceTree = "<group>"; };
 		0375107B13AB101100E3138B /* comment_minus_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_minus_48.png; sourceTree = "<group>"; };
 		0375107C13AB101100E3138B /* comment_plus_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_plus_48.png; sourceTree = "<group>"; };
+		03870B5813E488BF006367B2 /* MyFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFormViewController.h; sourceTree = "<group>"; };
+		03870B5913E488BF006367B2 /* MyFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFormViewController.m; sourceTree = "<group>"; };
+		03870B5A13E488BF006367B2 /* MyFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFormViewController.xib; sourceTree = "<group>"; };
+		03870B5D13E4893B006367B2 /* KonstructorFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KonstructorFormViewController.h; sourceTree = "<group>"; };
+		03870B5E13E4893B006367B2 /* KonstructorFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KonstructorFormViewController.m; sourceTree = "<group>"; };
+		03870B5F13E4893B006367B2 /* KonstructorFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KonstructorFormViewController.xib; sourceTree = "<group>"; };
 		03D2C62313AB196700CC1238 /* MyListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyListViewController.xib; sourceTree = "<group>"; };
 		03D2C62613AB198300CC1238 /* MyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyListViewController.h; sourceTree = "<group>"; };
 		03D2C62713AB198300CC1238 /* MyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyListViewController.m; sourceTree = "<group>"; };
@@ -207,6 +217,9 @@
 				036F0ADD13AEA20900A27697 /* MyDetailViewController.h */,
 				036F0ADE13AEA20A00A27697 /* MyDetailViewController.m */,
 				03D2C62813AB198300CC1238 /* TableViews */,
+				03870B5813E488BF006367B2 /* MyFormViewController.h */,
+				03870B5913E488BF006367B2 /* MyFormViewController.m */,
+				03870B5A13E488BF006367B2 /* MyFormViewController.xib */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -218,6 +231,9 @@
 				03D2C62A13AB198300CC1238 /* KonstructorTableViewController.m */,
 				03D2C62B13AB198300CC1238 /* TableRowBuilder.h */,
 				03D2C62C13AB198300CC1238 /* TableRowBuilder.m */,
+				03870B5D13E4893B006367B2 /* KonstructorFormViewController.h */,
+				03870B5E13E4893B006367B2 /* KonstructorFormViewController.m */,
+				03870B5F13E4893B006367B2 /* KonstructorFormViewController.xib */,
 			);
 			path = TableViews;
 			sourceTree = "<group>";
@@ -267,6 +283,7 @@
 		0375101913AB06A300E3138B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = fr.ivolo.us;
 			};
 			buildConfigurationList = 0375101C13AB06A300E3138B /* Build configuration list for PBXProject "Konstructor" */;
@@ -299,6 +316,8 @@
 				0375107E13AB101100E3138B /* comment_plus_48.png in Resources */,
 				03D2C62413AB196700CC1238 /* MyListViewController.xib in Resources */,
 				036F0AE413AEA5C200A27697 /* MyDetailViewController.xib in Resources */,
+				03870B5C13E488BF006367B2 /* MyFormViewController.xib in Resources */,
+				03870B6113E4893B006367B2 /* KonstructorFormViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +359,8 @@
 				03D2C62E13AB198300CC1238 /* KonstructorTableViewController.m in Sources */,
 				03D2C62F13AB198300CC1238 /* TableRowBuilder.m in Sources */,
 				036F0AE013AEA20A00A27697 /* MyDetailViewController.m in Sources */,
+				03870B5B13E488BF006367B2 /* MyFormViewController.m in Sources */,
+				03870B6013E4893B006367B2 /* KonstructorFormViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
