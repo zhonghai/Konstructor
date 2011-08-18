@@ -40,9 +40,11 @@
 - (void)viewDidLoad
 {
     self.title = item;
-    [self addSectionHeader:^(UIView *view){}];
     
-    self.tableCellHeight = 100.0f;
+    [self addSectionHeaderWithNibName:@"KonstructorTableViewCell" andBlock:^(UIView *view){}];
+    
+    [self setCellHeight:100.0f];
+    
     [self addRow:^(TableRowBuilder *builder){
         builder.title = @"item 1";
         builder.caption = @"description for item 1";

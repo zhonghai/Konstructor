@@ -36,19 +36,20 @@
 
 #pragma mark - View lifecycle
 - (void)viewDidLoad{
-    self.tableCellHeight = 100.0;
-    [self addSectionHeader:^(UIView *view){
+    [self addSectionHeaderWithNibName:@"KonstructorTableViewCell" andBlock:^(UIView *view){
         CGRect frame = self.view.frame;
         frame.size.height = 25.0;
         view.frame = frame;
         frame.size.height = 20;
         frame.size.width -=20;
         frame.origin.x += 10;
+        frame.origin.y = 0;
         UILabel *label = [[[UILabel alloc] init] autorelease];
         label.text = NSLocalizedString(@"Clothing", "clothing");
         label.frame = frame;
         [view addSubview:label];
     }];
+    [self setCellHeight:100.0f];
     NSDictionary *gloves = [NSDictionary dictionaryWithObjectsAndKeys:@"Gloves", @"name", @"for your hands", @"caption", nil];
     NSDictionary *muffs = [NSDictionary dictionaryWithObjectsAndKeys:@"Muffs", @"name", @"for your ears", @"caption", nil];
     NSDictionary *shoes = [NSDictionary dictionaryWithObjectsAndKeys:@"Socks", @"name", @"for your feets", @"caption", nil];
@@ -79,6 +80,8 @@
         };
         builder.selector = @selector(toggle:);
     }];
+    
+    
     
     /*
      * Use this to auto-customize
@@ -123,9 +126,9 @@
 
 - (void)toggle:(TableRowBuilder *)builder{
     builder.selected = !builder.selected;
-    NSLog(@"%@ %@ %@", tableView, builder, rowBuilders);
-    NSArray *indexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:[self.rowBuilders indexOfObject:builder] inSection:0]];
-    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+//    NSLog(@"%@ %@ %@", tableView, builder, rowBuilders);
+//    NSArray *indexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:[self.rowBuilders indexOfObject:builder] inSection:0]];
+//    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)viewDidUnload
