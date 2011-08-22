@@ -21,9 +21,13 @@ typedef void (^CellConfigurationBlock)(id item, UITableViewCell *cell);
 typedef void (^CellBuilderBlock)(id item, UITableViewCell *cell, TableRowBuilder *builder);
 typedef void (^TableDrillDownBlock)(id item);
 
-@interface KonstructorTableViewController : UIViewController {
+
+
+@interface KonstructorTableViewController : UIViewController <TableRowBuilderDelegate> {
     IBOutlet UITableViewCell *loadedCell;
     IBOutlet UITableView *tableView;
+    
+    UIResponder *currentFormElement;
     
     NSFetchedResultsController *_resultsController;
     
@@ -86,19 +90,22 @@ typedef void (^TableDrillDownBlock)(id item);
 /* Use this to add a custom section header */
 - (UIView *)addSectionHeaderWithNibName:(NSString *)nibName andBlock:(TableSectionHeaderBlock)sectionBlock;
 
-/* Use this to generate your table view from a results controller */
-- (void)bindToFetchedResultsController:(NSFetchedResultsController *)resultsController withCellBlock:(CellConfigurationBlock)cellBlock;
-
 /* Use this to generate your table view from a results controller
  * and get back a TableRowBuilder to provide a drillDownBlock
  */
-- (void)bindToFetchedResultsController:(NSFetchedResultsController *)resultsController withCellBuilderBlock:(CellBuilderBlock)cellBlock;
+- (void)bindToFetchedResultsController:(NSFetchedResultsController *)resultsController withNibName:(NSString *)nibName andCellBuilderBlock:(CellBuilderBlock)builderBlock;
 
 /* Set the height of the current section */
 - (void)setCellHeight:(CGFloat)height;
 
 /* Use this to load your rows if you wish */
 - (void)buildRows;
+
+/* Get the first section */
+- (TableSectionBuilder *)firstSection;
+
+/* Get the current section (last) */
+- (TableSectionBuilder *)currentSection;
 
 /* shorthand for [self.tableView reloadData] */
 - (void)reload;
@@ -108,5 +115,8 @@ typedef void (^TableDrillDownBlock)(id item);
 
 /* called when the caption for a row is displayed (dateLabel for date rows) */
 - (NSString *)captionForRow:(TableRowBuilder *)row;
+
+/* force the keyboard to disappear */
+- (void)dismissKeyboard;
 
 @end

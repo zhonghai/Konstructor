@@ -15,6 +15,7 @@
 @implementation TableSectionBuilder
 
 @synthesize rows;
+@synthesize defaultRow;
 @synthesize builderObjects;
 @synthesize view;
 @synthesize builderBlock;
@@ -30,6 +31,8 @@
 {
     [rows release];
     rows = nil;
+    [defaultRow release];
+    defaultRow = nil;
     [builderObjects release];
     builderObjects = nil;
     [view release];

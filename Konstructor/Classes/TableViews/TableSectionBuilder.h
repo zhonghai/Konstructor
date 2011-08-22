@@ -13,6 +13,7 @@ typedef void (^TableSectionBuilderBlock)(id item, TableRowBuilder *builder);
 
 @interface TableSectionBuilder : NSObject {
     NSMutableArray *rows;
+    TableRowBuilder *defaultRow;
     NSMutableArray *builderObjects;
     UIView *view;
     
@@ -24,6 +25,9 @@ typedef void (^TableSectionBuilderBlock)(id item, TableRowBuilder *builder);
 
 /* Stores an array of the TableRowBuilder objects which configure rows */
 @property (nonatomic, retain) NSMutableArray *rows;
+
+/* Stores one TableRowBuilder to be used for all rows */
+@property (nonatomic, retain) TableRowBuilder *defaultRow;
 
 /* Stores a reference to the objects used to populate each row */
 @property (nonatomic, retain) NSMutableArray *builderObjects;

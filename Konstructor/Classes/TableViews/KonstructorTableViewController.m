@@ -20,7 +20,6 @@
 - (void)showFormElementForRow:(TableRowBuilder *)row;
 - (void)hideFormElements;
 - (void)addToggleForCell:(UITableViewCell *)cell builder:(TableRowBuilder *)builder;
-
 @end
 
 static CGFloat const GlobalPickerHeight = 160.0;
@@ -79,11 +78,15 @@ static CGFloat const GlobalPickerHeight = 160.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
     [tableView reloadData];
 }
 
 - (void)viewDidUnload
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
     
     [tableView release];
     tableView = nil;
@@ -117,13 +120,13 @@ static CGFloat const GlobalPickerHeight = 160.0;
     section.builderBlock = builderBlock;
     for(int i = 0; i < objects.count; i++){
         [section.builderObjects addObject:[objects objectAtIndex:i]];
-        [section.rows addObject:[TableRowBuilder genericBuilder]];
+        [section.rows addObject:[TableRowBuilder newRowWithDelegate:self]];
     }
 }
 
 - (TableRowBuilder *)addRow:(TableRowBuilderBlock)builderBlock{
     TableRowBuilderBlock _block = Block_copy(builderBlock);
-    TableRowBuilder *row = [TableRowBuilder genericBuilder];
+    TableRowBuilder *row = [TableRowBuilder newRowWithDelegate:self];
     _block(row);
     Block_release(_block);
     TableSectionBuilder *section = [self.sections lastObject];
@@ -134,7 +137,7 @@ static CGFloat const GlobalPickerHeight = 160.0;
 - (void)addRowWithBuilder:(TableRowBuilder *)builder
 {
     if(![self.sections count]) return;
-    [[self.sections lastObject] addObject:builder];
+    [[self currentSection].rows addObject:builder];
 }
 
 - (TableRowBuilder *)addRowWithCellBlock:(CellConfigurationBlock)_cellBlock
@@ -144,20 +147,33 @@ static CGFloat const GlobalPickerHeight = 160.0;
 //    [section.rows addObject:builder];
 //    section.cellBlock = _cellBlock;
 //    return builder;
+    return nil;
 }
 
-- (void)bindToFetchedResultsController:(NSFetchedResultsController *)resultsController withCellBlock:(CellConfigurationBlock)_cellBlock{
-    self.cellBlock = _cellBlock;
-}
-
-- (void)bindToFetchedResultsController:(NSFetchedResultsController *)resultsController withCellBuilderBlock:(CellBuilderBlock)builderBlock
+- (void)bindToFetchedResultsController:(NSFetchedResultsController *)controller withNibName:(NSString *)nibName andCellBlock:(CellConfigurationBlock)_cellBlock
 {
-    TableSectionBuilder *section = [self.sections lastObject];
-    TableRowBuilder *row = [TableRowBuilder genericBuilder];
-    [section.rows addObject:row];
+    self.cellBlock = _cellBlock;
+    for(int i = 0; i < [controller sections].count ; i++){
+        TableSectionBuilder *section = [TableSectionBuilder newSection];
+        section.cellNibName = nibName;
+        section.defaultRow = [TableRowBuilder newRowWithDelegate:self];
+        [self.sections addObject:section];
+    }
+}
+
+- (void)bindToFetchedResultsController:(NSFetchedResultsController *)controller withNibName:(NSString *)nibName andCellBuilderBlock:(CellBuilderBlock)builderBlock
+{
+    MRLog(@"sections %d", [controller sections].count);
+    for(int i = 0; i < [controller sections].count ; i++){
+        TableSectionBuilder *section = [TableSectionBuilder newSection];
+        section.cellNibName = nibName;
+        [self.sections addObject:section];
+    }
+    MRLog(@"sections %@", self.sections);
     self.cellBuilderBlock = builderBlock;
 }
 
+# pragma mark - Utility methods
 - (void)setCellHeight:(CGFloat)height
 {
     TableSectionBuilder *section = [self.sections lastObject];
@@ -168,9 +184,23 @@ static CGFloat const GlobalPickerHeight = 160.0;
     // Not Implemented.  Convenience method for subclasses
 }
 
+- (TableSectionBuilder *)firstSection
+{
+    return self.sections.count > 0 ? [self.sections objectAtIndex:0] : nil;
+}
+
+- (TableSectionBuilder *)currentSection
+{
+    return self.sections.count > 0 ? [self.sections lastObject] : nil;
+}
+
+# pragma mark - Cell Configuration
 - (UITableViewCell *)configureGroupedCellAtIndexPath:(NSIndexPath *)indexPath{
+    LOGMETHOD();
+    MRLog(@"sections %@", self.sections);
     TableSectionBuilder *section = [self.sections objectAtIndex:indexPath.section];
     TableRowBuilder *row = [section.rows objectAtIndex:indexPath.row];
+    MRLog(@"section %@", section);
     UITableViewCell *cell = (UITableViewCell *)[self.tableView dequeueReusableCellWithIdentifier:section.cellNibName];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:KonstructorCellIdentifier] autorelease];
@@ -201,7 +231,13 @@ static CGFloat const GlobalPickerHeight = 160.0;
 
 - (UITableViewCell *)configurePlainCellAtIndexPath:(NSIndexPath *)indexPath{
     TableSectionBuilder *section = [self.sections objectAtIndex:indexPath.section];
-    TableRowBuilder *row = [section.rows objectAtIndex:indexPath.row];
+    TableRowBuilder *row;
+    if(section.rows.count < 1){
+        row = section.defaultRow;
+    }
+    else{
+        row = [section.rows objectAtIndex:indexPath.row];    
+    }
     UITableViewCell *cell = (UITableViewCell *)[self.tableView dequeueReusableCellWithIdentifier:section.cellNibName];
     NSLog(@"Using custom nib: %@", section.cellNibName);
     NSAssert(section.cellNibName != nil, @"You must set a cellNibName on every section");
@@ -220,7 +256,7 @@ static CGFloat const GlobalPickerHeight = 160.0;
     }
     else if(cellBuilderBlock){
         NSManagedObject *obj = [_resultsController objectAtIndexPath:indexPath];
-        cellBuilderBlock(obj, cell, [TableRowBuilder genericBuilder]);
+        cellBuilderBlock(obj, cell, [TableRowBuilder newRowWithDelegate:self]);
     }
     else{
         if(section.builderBlock){
@@ -301,8 +337,8 @@ static CGFloat const GlobalPickerHeight = 160.0;
 }
 
 - (void)showFormElementForRow:(TableRowBuilder *)row{
-    for(NSMutableArray *section in self.sections){
-        for(TableRowBuilder *row in section){
+    for(TableSectionBuilder *section in self.sections){
+        for(TableRowBuilder *row in section.rows){
             // hide all text fields
             [row.formElement resignFirstResponder];
         }
@@ -403,7 +439,13 @@ static CGFloat const GlobalPickerHeight = 160.0;
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self hideFormElements];
     TableSectionBuilder *section = [self.sections objectAtIndex:indexPath.section];
-    TableRowBuilder *row = [section.rows objectAtIndex:indexPath.row];
+    TableRowBuilder *row;
+    if(section.rows.count < 1){
+        row = section.defaultRow;
+    }
+    else{
+        row = [section.rows objectAtIndex:indexPath.row];    
+    }
     
     if(![sections count] && !tableDrillDownBlock){
         [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -449,11 +491,24 @@ static CGFloat const GlobalPickerHeight = 160.0;
         // Nothing to do
     }
 }
-  
-#pragma Keyboard
+
+# pragma mark - TableRowBuilderDelegate
+- (void)tableRowBuilder:(TableRowBuilder *)builder formElementDidBecomeActive:(UIResponder *)element
+{
+    LOGMETHOD();
+    currentFormElement = element;
+}
+
+# pragma mark - Keyboard
+
+- (void)dismissKeyboard
+{
+    MRLog(@"currentFormElement %@", currentFormElement);
+    [currentFormElement resignFirstResponder];
+}
 
 - (void)keyboardDidShow:(id)sender{
-    tableView.contentInset = UIEdgeInsetsMake(0, 0, 180, 0);
+    tableView.contentInset = UIEdgeInsetsMake(0, 0, 240, 0);
 }
 
 - (void)keyboardDidHide:(id)sender{

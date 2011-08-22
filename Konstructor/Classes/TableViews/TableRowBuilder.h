@@ -13,6 +13,8 @@ typedef void (^CellConfigurationCallback)(UITableViewCell *cell);
 typedef void (^ToggleBlock)(void);
 typedef void (^DrillDownBlock)(void);
 
+@protocol TableRowBuilderDelegate;
+
 @interface TableRowBuilder : NSObject <UITextFieldDelegate>{
     SEL selector;
     id <NSObject>obj;
@@ -53,7 +55,13 @@ typedef void (^DrillDownBlock)(void);
     
     // date Label
     UILabel *dateLabel;
+
+    @private
+        id <TableRowBuilderDelegate>_delegate;
 }
+
+/* communicates back to Konstructor table views when activity changes */
+@property (nonatomic, assign) id<TableRowBuilderDelegate>delegate;
 
 @property (nonatomic) SEL selector;
 @property (nonatomic, retain) NSString *title;
@@ -89,8 +97,11 @@ typedef void (^DrillDownBlock)(void);
 // Label for date picker rows
 @property (nonatomic, retain) UILabel *dateLabel;
 
+// creates a now with a delegate
++ (id)newRowWithDelegate:(id<TableRowBuilderDelegate>)newDelegate;
+
 // Use this instead of [[... alloc] init];
-+ (id)genericBuilder;
++ (id)newRow;
 
 // generic row configured in callback
 + (id)itemWithCallback:(CellConfigurationCallback)callback;
@@ -126,3 +137,8 @@ typedef void (^DrillDownBlock)(void);
 - (NSDate *)selectedDate;
 
 @end
+
+@protocol TableRowBuilderDelegate <NSObject>
+- (void)tableRowBuilder:(TableRowBuilder *)builder formElementDidBecomeActive:(UIResponder *)element;
+@end
+

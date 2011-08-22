@@ -11,6 +11,7 @@
 
 @implementation TableRowBuilder
 
+@synthesize delegate = _delegate;
 @synthesize selector;
 @synthesize obj;
 @synthesize title;
@@ -70,7 +71,18 @@
     return self;
 }
 
-+ (id)genericBuilder{
++ (id)newRowWithDelegate:(id<TableRowBuilderDelegate>)newDelegate
+{
+    TableRowBuilder *row = [[[[self class] alloc] init] autorelease];
+    row.delegate = newDelegate;
+    row.titleTag = 101;
+    row.captionTag = 102;
+    row.iconTag = 103;
+    return row;
+    
+}
+
++ (id)newRow{
     TableRowBuilder *row = [[[[self class] alloc] init] autorelease];
     row.titleTag = 101;
     row.captionTag = 102;
@@ -197,18 +209,25 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-
+    [self.delegate tableRowBuilder:self formElementDidBecomeActive:textField];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
+    // save the value when the user is done
     [self.obj performSelector:selector withObject:textField.text];
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    // save the value when the user is done
+    MRLog(@"end editing %@", textField.text);
+    [self.obj performSelector:selector withObject:textField.text];
     return YES;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    // save the value as the user is typing
+    MRLog(@"text %@", textField.text);
+    [self.obj performSelector:selector withObject:textField.text];
     return YES;
 }
 
