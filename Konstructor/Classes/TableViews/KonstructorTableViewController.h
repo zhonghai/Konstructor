@@ -95,6 +95,16 @@ typedef void (^TableDrillDownBlock)(id item);
  */
 - (void)bindToFetchedResultsController:(NSFetchedResultsController *)resultsController withNibName:(NSString *)nibName andCellBuilderBlock:(CellBuilderBlock)builderBlock;
 
+/*
+ * Override this to customize your grouped cells.  Be careful.
+ */
+- (UITableViewCell *)configureGroupedCellAtIndexPath:(NSIndexPath *)indexPath;
+
+/*
+ * Override this to customize your plain cells.  Be careful
+ */
+- (UITableViewCell *)configurePlainCellAtIndexPath:(NSIndexPath *)indexPath;
+
 /* Set the height of the current section */
 - (void)setCellHeight:(CGFloat)height;
 

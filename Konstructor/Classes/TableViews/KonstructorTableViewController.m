@@ -12,8 +12,6 @@
 @interface KonstructorTableViewController (PrivateMethods)
 
 - (NSString *)labelForRow:(TableRowBuilder *)row;
-- (UITableViewCell *)configureGroupedCellAtIndexPath:(NSIndexPath *)indexPath;
-- (UITableViewCell *)configurePlainCellAtIndexPath:(NSIndexPath *)indexPath;
 - (void)setup;
 - (void)rowTapped:(TableRowBuilder *)row;
 - (void)toggleRow:(TableRowBuilder *)row;
