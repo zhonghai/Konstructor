@@ -194,11 +194,8 @@ static CGFloat const GlobalPickerHeight = 160.0;
 
 # pragma mark - Cell Configuration
 - (UITableViewCell *)configureGroupedCellAtIndexPath:(NSIndexPath *)indexPath{
-    LOGMETHOD();
-    MRLog(@"sections %@", self.sections);
     TableSectionBuilder *section = [self.sections objectAtIndex:indexPath.section];
     TableRowBuilder *row = [section.rows objectAtIndex:indexPath.row];
-    MRLog(@"section %@", section);
     UITableViewCell *cell = (UITableViewCell *)[self.tableView dequeueReusableCellWithIdentifier:section.cellNibName];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:KonstructorCellIdentifier] autorelease];
@@ -404,8 +401,6 @@ static CGFloat const GlobalPickerHeight = 160.0;
         count = [[[self resultsController] sections] count];
     else
         count = [self.sections count];
-    
-    NSLog(@"sections %d", count);
     return count;
 }
 
@@ -419,8 +414,6 @@ static CGFloat const GlobalPickerHeight = 160.0;
         TableSectionBuilder *section = [self.sections objectAtIndex:sectionIndex];
         count = [section.rows count];
     }
-    
-    NSLog(@"rows %d", count);
     return count;
 }
 
@@ -463,6 +456,7 @@ static CGFloat const GlobalPickerHeight = 160.0;
         }
         if(!row.toggleable)
             [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
         // fall back to other actions
         if(row.toggleable){
             row.on = ![row isOn];
@@ -501,7 +495,6 @@ static CGFloat const GlobalPickerHeight = 160.0;
 
 - (void)dismissKeyboard
 {
-    MRLog(@"currentFormElement %@", currentFormElement);
     [currentFormElement resignFirstResponder];
 }
 
