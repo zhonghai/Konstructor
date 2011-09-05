@@ -76,6 +76,16 @@ static CGFloat const GlobalPickerHeight = 160.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if(self.tableView == nil){
+        NSLog(@"no tableview found.  Creating a Plain tableview now");
+        CGRect frame = self.view.frame;
+        frame.origin = CGPointMake(0.0, 0.0);
+        self.tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+        [self.view addSubview:self.tableView];
+        [self.tableView release];
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
     [tableView reloadData];

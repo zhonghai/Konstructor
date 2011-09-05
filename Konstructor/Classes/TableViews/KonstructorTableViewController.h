@@ -23,7 +23,7 @@ typedef void (^TableDrillDownBlock)(id item);
 
 
 
-@interface KonstructorTableViewController : UIViewController <TableRowBuilderDelegate> {
+@interface KonstructorTableViewController : UIViewController <TableRowBuilderDelegate, UITableViewDelegate, UITableViewDataSource> {
     IBOutlet UITableViewCell *loadedCell;
     IBOutlet UITableView *tableView;
     
