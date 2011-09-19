@@ -171,13 +171,13 @@ static CGFloat const GlobalPickerHeight = 160.0;
 
 - (void)bindToFetchedResultsController:(NSFetchedResultsController *)controller withNibName:(NSString *)nibName andCellBuilderBlock:(CellBuilderBlock)builderBlock
 {
-    MRLog(@"sections %d", [controller sections].count);
+    NSLog(@"sections %d", [controller sections].count);
     for(int i = 0; i < [controller sections].count ; i++){
         TableSectionBuilder *section = [TableSectionBuilder newSection];
         section.cellNibName = nibName;
         [self.sections addObject:section];
     }
-    MRLog(@"sections %@", self.sections);
+    NSLog(@"sections %@", self.sections);
     self.cellBuilderBlock = builderBlock;
 }
 

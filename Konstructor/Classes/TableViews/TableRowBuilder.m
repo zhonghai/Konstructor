@@ -219,14 +219,14 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
     // save the value when the user is done
-    MRLog(@"end editing %@", textField.text);
+    NSLog(@"end editing %@", textField.text);
     [self.obj performSelector:selector withObject:textField.text];
     return YES;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     // save the value as the user is typing
-    MRLog(@"text %@", textField.text);
+    NSLog(@"text %@", textField.text);
     [self.obj performSelector:selector withObject:textField.text];
     return YES;
 }
