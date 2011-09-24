@@ -117,9 +117,10 @@ static CGFloat const GlobalPickerHeight = 160.0;
     TableSectionBuilder *section = [TableSectionBuilder newSection];
     section.cellNibName = nibName;
     [self.sections addObject:section];
-    section.view = [[UIView alloc] init];
+    section.view = [[[UIView alloc] init] autorelease];
     section.view.backgroundColor = [UIColor clearColor];
-    sectionBlock(section.view);
+    if(sectionBlock)
+        sectionBlock(section.view);
     return section.view;
 }
 
