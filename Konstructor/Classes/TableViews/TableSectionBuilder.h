@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "TableRowBuilder.h"
 
-typedef void (^TableSectionBuilderBlock)(id item, TableRowBuilder *builder);
+typedef void (^TableSectionBuilderBlock)(id item, TableRowBuilder *builder, UITableViewCell *cell);
 
 @interface TableSectionBuilder : NSObject {
     NSMutableArray *rows;
@@ -44,5 +44,6 @@ typedef void (^TableSectionBuilderBlock)(id item, TableRowBuilder *builder);
 @property (nonatomic) CGFloat cellHeight;
 
 + (id)newSection;
+- (void)addObject:(NSObject *)obj;
 
 @end

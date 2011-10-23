@@ -149,14 +149,12 @@ static CGFloat const GlobalPickerHeight = 160.0;
     [[self currentSection].rows addObject:builder];
 }
 
-- (TableRowBuilder *)addRowWithCellBlock:(CellConfigurationBlock)_cellBlock
+- (void)addRowWithObject:(NSObject *)obj
 {
-//    TableSectionBuilder *section = [self.sections lastObject];
-//    TableRowBuilder *builder = [TableRowBuilder genericBuilder];
-//    [section.rows addObject:builder];
-//    section.cellBlock = _cellBlock;
-//    return builder;
-    return nil;
+    TableSectionBuilder *section = [self.sections lastObject];
+    if(!section) return;
+    
+    [section addObject:obj];
 }
 
 - (void)bindToFetchedResultsController:(NSFetchedResultsController *)controller withNibName:(NSString *)nibName andCellBlock:(CellConfigurationBlock)_cellBlock
@@ -173,7 +171,7 @@ static CGFloat const GlobalPickerHeight = 160.0;
 - (void)bindToFetchedResultsController:(NSFetchedResultsController *)controller withNibName:(NSString *)nibName andCellBuilderBlock:(CellBuilderBlock)builderBlock
 {
     NSLog(@"sections %d", [controller sections].count);
-    for(int i = 0; i < [controller sections].count ; i++){
+    for(int i = 0; i < [controller sections].count; i++){
         TableSectionBuilder *section = [TableSectionBuilder newSection];
         section.cellNibName = nibName;
         [self.sections addObject:section];
@@ -266,7 +264,7 @@ static CGFloat const GlobalPickerHeight = 160.0;
     }
     else{
         if(section.builderBlock){
-            section.builderBlock([section.builderObjects objectAtIndex:indexPath.row], row);
+            section.builderBlock([section.builderObjects objectAtIndex:indexPath.row], row, cell);
         }
         
         else{
@@ -412,6 +410,7 @@ static CGFloat const GlobalPickerHeight = 160.0;
         count = [[[self resultsController] sections] count];
     else
         count = [self.sections count];
+    PMLog(@"section count %d", count);
     return count;
 }
 
@@ -425,6 +424,7 @@ static CGFloat const GlobalPickerHeight = 160.0;
         TableSectionBuilder *section = [self.sections objectAtIndex:sectionIndex];
         count = [section.rows count];
     }
+    PMLog(@"row count %d", count);
     return count;
 }
 

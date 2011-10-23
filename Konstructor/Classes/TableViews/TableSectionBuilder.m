@@ -62,4 +62,10 @@
     return section;
 }
 
+- (void)addObject:(NSObject *)obj
+{
+    [self.builderObjects addObject:obj];
+    [self.rows addObject:[[[TableRowBuilder alloc] init] autorelease]];
+}
+
 @end

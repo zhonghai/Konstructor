@@ -82,6 +82,8 @@ typedef void (^TableDrillDownBlock)(id item);
  */
 - (void)addRowWithBuilder:(TableRowBuilder *)builder;
 
+- (void)addRowWithObject:(NSObject *)obj;
+
 /*
  * Use this to create each row by hand with the cell passed in
  */
