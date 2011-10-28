@@ -23,8 +23,8 @@
 @synthesize cellHeight;
 
 - (void)dealloc{
-    [super dealloc];
     [self cleanup];
+    [super dealloc];
 }
 
 - (void)cleanup
