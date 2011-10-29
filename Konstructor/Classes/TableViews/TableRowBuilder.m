@@ -204,10 +204,6 @@
 #pragma mark -
 #pragma UITextFieldDelegate
 
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    return YES;
-}
-
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     [self.delegate tableRowBuilder:self formElementDidBecomeActive:textField];
 }
@@ -217,17 +213,10 @@
     [self.obj performSelector:selector withObject:textField.text];
 }
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
-    // save the value when the user is done
-    NSLog(@"end editing %@", textField.text);
-    [self.obj performSelector:selector withObject:textField.text];
-    return YES;
-}
-
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     // save the value as the user is typing
-    NSLog(@"text %@", textField.text);
-    [self.obj performSelector:selector withObject:textField.text];
+    NSString* textAfterEdit = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    [self.obj performSelector:selector withObject:textAfterEdit];
     return YES;
 }
 
